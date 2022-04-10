@@ -15,8 +15,8 @@ app = Flask(__name__)
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-        username = request.form.get("fname")
-        pwd = request.form.get("lname")
+        username = request.form.get("usr")
+        pwd = request.form.get("pwd")
         table = bk.return_attendance(username,pwd)
         return render_template("output.html",table = table)
         return str(bk.return_attendance(username,pwd))
