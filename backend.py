@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from tabulate import tabulate
 
 
 session = requests.Session()
@@ -51,5 +50,5 @@ for row in rows:
     cols = [ele.text.strip() for ele in cols]
     data.append([ele for ele in cols if ele]) # Get rid of empty val
 
-print(tabulate(data,tablefmt="plain"))
+print(data)
 # TableIt.print(data, useFieldNames=True)
