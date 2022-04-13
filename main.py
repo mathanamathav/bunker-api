@@ -18,7 +18,9 @@ def gfg():
         username = request.form.get("usr")
         pwd = request.form.get("pwd")
         table = bk.return_attendance(username,pwd)
-        return render_template("output.html",table = table)
+        res = bk.data_json(table)
+
+        return render_template("output.html",table = res)
         return str(bk.return_attendance(username,pwd))
         
     return render_template("home.html")
@@ -28,7 +30,8 @@ def send_attendance(username,pwd):
     if request.method == "POST":
         print(username,pwd)
         table = bk.return_attendance(username,pwd)
-        res = {"usr" : username,"pwd":pwd ,"values":table}
+        res = bk.data_json(table)
+
         return jsonify(res)
 
 

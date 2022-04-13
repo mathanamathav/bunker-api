@@ -1,6 +1,42 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+import math
+
+def data_json(data):
+    """
+        here we convert the data to json format calculate the amount days we have to take leave.
+    """
+    index_required = [0,1,4,5,8,9]
+    response_data = {}
+    threshold = 0.75
+
+    for item in range(1,len(data)):
+        item = data[item]
+        temp = {}
+        
+        j = 1
+        temp['total_hours'] = int(item[index_required[j]])
+        j += 1
+        temp['total_present'] = int(item[index_required[j]])
+        j += 1
+        temp['percentage_of_attendance'] = int(item[index_required[j]])
+
+        if temp['percentage_of_attendance'] <= 75:
+            temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
+        
+        else:
+            temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold*temp['total_hours']))/(threshold))
+
+
+        j += 1
+        temp['attendance_from'] = (item[index_required[j]])
+        j += 1
+        temp['attendance_to'] = (item[index_required[j]])
+        
+        response_data[item[index_required[0]]] = temp
+    
+    return response_data
 
 
 def return_attendance(username,pwd):
@@ -59,3 +95,4 @@ def return_attendance(username,pwd):
     
     except:
         return "Try again after some time"
+
