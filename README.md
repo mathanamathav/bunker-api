@@ -1,10 +1,10 @@
 **Bunker-API**
 ----
-  _The API call takes upon the login details as parameter and returns scarped details from the website using the beautiful soup and days to take leave or not!._
+  The API call takes upon the login details as parameter and returns scarped details from the website using the beautiful soup and days to take leave or not!.
 
 * **URL**
 
-  _https://bunker-api-prj.herokuapp.com/send_attendance/<_rollno_>/<_pwd_>_
+  https://bunker-api-prj.herokuapp.com/send_attendance/<_rollno_>/<_pwd_>
 
 * **Method:**
 
@@ -17,11 +17,13 @@
    `username=[alphanumeric]`
    
    `pwd=[alphanumeric]`
+   
+* **Data Params**
+
+  None
 
 * **Success Response:**
   
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
   * **Code:** 200 <br />
     **Content:** 
     ```json
@@ -106,12 +108,12 @@
 
 * **Sample Call:**
 
-```javascript
-const response = await fetch('https://bunker-api-prj.herokuapp.com/send_attendance/1****1/******', {
-  method: 'POST'
-});
+  ```javascript
+  const response = await fetch('https://bunker-api-prj.herokuapp.com/send_attendance/1****1/******', {
+    method: 'POST'
+  });
 
-response.json().then(function (json) {
-  console.log(json)
-});
-```
+  response.json().then(function (json) {
+    console.log(json)
+  });
+  ```
