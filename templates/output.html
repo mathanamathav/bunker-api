@@ -1,7 +1,30 @@
 {% include 'home.html' %}
-
-<ul>
+<!-- <-- <ul>
 	{% for val in table %}
 	<li>{{ val }}</li>
 	{% endfor %}
-</ul>
+</ul> --> 
+{{data}}
+
+	 <center>
+		<div id='chart' class='chart'”></div>
+	 </center>
+	 <center>
+		<div id='chart2' class='chart'”></div>
+	 </center>
+	 <center>
+		<div id='chart3' class='chart'”></div>
+	 </center>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+  var graphs = {{graphJSON | safe}};
+  Plotly.plot('chart',graphs,{});
+
+  var graphs = {{graphJSON2 | safe}};
+  Plotly.plot('chart2',graphs,{});
+  
+  var graphs = {{graphJSON3 | safe}};
+  Plotly.plot('chart3',graphs,{});
+
+</script>

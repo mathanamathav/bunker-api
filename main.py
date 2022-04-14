@@ -1,6 +1,12 @@
 from flask import Flask, request, render_template,jsonify
 import bunker_mod as bk
 import requests
+import pandas as pd
+import json
+import plotly
+import plotly.express as px
+import plotly.graph_objects as go
+
 
 
 app = Flask(__name__)
@@ -20,8 +26,29 @@ def gfg():
         table = bk.return_attendance(username,pwd)
         res = bk.data_json(table)
 
-        return render_template("output.html",table = res)
-        return str(bk.return_attendance(username,pwd))
+        if len(res) != 0:
+
+            courses = []
+            total_class = []
+            total_present = []
+
+            for course in res:
+                courses.append(course)
+                total_class.append(res[course]['total_hours'])
+                total_present.append(res[course]['total_present'])
+
+
+            graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot Total Class VS present")
+            
+            graphJSON2 = bk.pie_chart(courses,total_class,"Distribution of Classes")
+
+            graphJSON3 = bk.pie_chart(courses,total_present,"Distribution of Attendance")
+
+
+
+
+            return render_template("output.html",graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3)
+            return str(bk.return_attendance(username,pwd))
         
     return render_template("home.html")
 

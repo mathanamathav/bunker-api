@@ -2,6 +2,48 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import math
+import json
+import plotly
+import plotly.express as px
+import plotly.graph_objects as go
+
+def line_chart(courses,total_class,total_present,title):
+    """
+        This function is to plot line chart Present vs Total
+    """
+    fig = go.Figure(data=[
+                    go.Bar(name='Total Class', x=courses, y=total_class),
+                    go.Bar(name='Total Present', x=courses, y=total_present)
+        ])
+    # fig = px.bar(df, x='course_code', y='total_class', color='course_code', barmode='group')
+    fig.update_layout({
+        'plot_bgcolor':'rgba(0,0,0,0)',
+        'paper_bgcolor': 'rgba(0,0,0,0)'
+    },showlegend=True,
+    title=title)
+    
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON
+
+
+
+def pie_chart(label,value,title):
+    """
+        This function is to plot pie chart
+    """
+    fig = go.Figure(data=[go.Pie(labels=label, values=value, hole=.3)])
+    fig.update_layout({
+        'plot_bgcolor':'rgba(0,0,0,0)',
+        'paper_bgcolor': 'rgba(0,0,0,0)'
+    }
+    ,showlegend=True,
+    title=title)
+
+    graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON2
+
+
+
 
 def data_json(data):
     """
