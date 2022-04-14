@@ -14,11 +14,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 
-
-# @app.route('/',methods=['GET'])
-# def home():
-#     return render_template('home.html')
-
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
@@ -49,7 +44,6 @@ def gfg():
 
 
             return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3)
-            return str(bk.return_attendance(username,pwd))
         else:
             return render_template("output.html",load=False)
         

@@ -16,9 +16,9 @@
 		<h4 style="font-family: 'Bangers', cursive;">Total Present					: {{value['total_present']}}</h4>
 		<h4 style="font-family: 'Bangers', cursive;">Percentage of Attendance		: {{value['percentage_of_attendance']}}</h4>
 		{% if value.get("class_to_bunk",0) != 0 %}
-			<i><h2 style="color:green;font-family: 'Bangers', cursive;">Class To Take leave						: {{value.get("class_to_bunk",0)}}</i> 👍</h2>
+			<h2 style="color:green;font-family: 'Bangers', cursive;">Class To Take leave						: {{value.get("class_to_bunk",0)}} 👍</h2>
 		{% else %}
-			<i><h2 style="color:red;font-family: 'Bangers', cursive;">Class To Attend						: {{value.get("class_to_attend",0)}}</i> 👎</h2>
+			<h2 style="color:red;font-family: 'Bangers', cursive;">Class To Attend						: {{value.get("class_to_attend",0)}} 👎</h2>
 		{% endif %}
 
 
@@ -32,8 +32,11 @@
 	<hr style="width:100%;height:4px;border: width 8px;">
 
 	<center>
-	<h1 style="font-family: 'Press Start 2P', cursive;font-size: 40px;">
-		Visualization of your Attendance
+	<h1 style="font-family: 'Press Start 2P', cursive;">
+		Visualization 
+		of 
+		your 
+		Attendance
 	</h1>
 	</center>
 
