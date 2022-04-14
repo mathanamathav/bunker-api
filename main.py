@@ -21,7 +21,7 @@ def gfg():
         pwd = request.form.get("pwd")
         table = bk.return_attendance(username,pwd)
         if table != "Invalid password" and table != "Try again after some time":
-            print(table)
+            
             res = bk.data_json(table)
 
             courses = []
@@ -52,11 +52,14 @@ def gfg():
 @app.route('/send_attendance/<username>/<pwd>',methods=['POST'])
 def send_attendance(username,pwd):
     if request.method == "POST":
-        print(username,pwd)
         table = bk.return_attendance(username,pwd)
-        res = bk.data_json(table)
+        if table != "Invalid password" and table != "Try again after some time":
+            res = bk.data_json(table)
 
-        return jsonify(res)
+            return jsonify(res)
+        else:
+            res = {"error" : "Invalid details try again"}
+            return jsonify(res)
 
 
 
