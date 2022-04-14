@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template,jsonify
+from flask import Flask, request, render_template,jsonify,flash
 import bunker_mod as bk
 import requests
 import pandas as pd
@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 
@@ -24,9 +25,9 @@ def gfg():
         username = request.form.get("usr")
         pwd = request.form.get("pwd")
         table = bk.return_attendance(username,pwd)
-        res = bk.data_json(table)
-
-        if len(res) != 0:
+        if table != "Invalid password" and table != "Try again after some time":
+            print(table)
+            res = bk.data_json(table)
 
             courses = []
             total_class = []
@@ -38,7 +39,7 @@ def gfg():
                 total_present.append(res[course]['total_present'])
 
 
-            graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot Total Class VS present")
+            graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
             
             graphJSON2 = bk.pie_chart(courses,total_class,"Distribution of Classes")
 
@@ -47,8 +48,10 @@ def gfg():
 
 
 
-            return render_template("output.html",graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3)
+            return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3)
             return str(bk.return_attendance(username,pwd))
+        else:
+            return render_template("output.html",load=False)
         
     return render_template("home.html")
 
