@@ -78,6 +78,8 @@ def senddata_attendance():
                 temp['total_hours'] = int(total_class[item])
                 temp['total_present'] = int(total_present[item])
                 percentage_of_attendance = temp['total_present']/temp['total_hours']
+                percentage_of_attendance = round(percentage_of_attendance,2)
+
                 temp['percentage_of_attendance'] = percentage_of_attendance
                 if (percentage_of_attendance) <= (threshold/100):
                     temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
