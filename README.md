@@ -126,5 +126,5 @@ Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
 
   response.json().then(function (json) {
     console.log(json)
-  });
+  }); 
   ```
