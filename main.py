@@ -53,14 +53,20 @@ def gfg():
 @app.route('/send_attendance/<username>/<pwd>',methods=['POST'])
 def send_attendance(username,pwd):
     if request.method == "POST":
-        table = bk.return_attendance(username,pwd)
-        if table != "Invalid password" and table != "Try again after some time":
-            res = bk.data_json(table)
+        try: 
+            table = bk.return_attendance(username,pwd)
+            if table != "Invalid password" and table != "Try again after some time":
+                res = bk.data_json(table)
 
-            return jsonify(res)
-        else:
-            res = {"error" : "Invalid details try again"}
-            return jsonify(res)
+                return jsonify(res)
+            else:
+                res = {"error" : "Invalid details try again"}
+                return jsonify(res)
+        
+        except:
+            response = {"error" : "Given input details does not match up!!"}
+            return jsonify(response)
+
 
 @app.route('/senddata_attendance',methods=['POST'])
 def senddata_attendance():
@@ -84,7 +90,7 @@ def senddata_attendance():
 
                 temp['percentage_of_attendance'] = percentage_of_attendance
                 if (percentage_of_attendance) <= (threshold):
-                    temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
+                    temp['class_to_attend'] = math.ceil(((threshold*temp['total_hours']) - temp['total_present'])/(1-threshold))
                 
                 else:
                     temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold*temp['total_hours']))/(threshold))
