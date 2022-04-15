@@ -50,7 +50,7 @@ for row in rows:
     cols = [ele.text.strip() for ele in cols]
     data.append([ele for ele in cols if ele]) # Get rid of empty val
 
-print(data)
+# print(data)
 # TableIt.print(data, useFieldNames=True)
 
 # ['COURSE CODE', 'TOTAL HOURS', 'EXEMPTION HOURS', 'TOTAL ABSENT', 'TOTAL PRESENT', 'PERCENTAGE OF ATTENDANCE', 'PERCENTAGE WITH EXEMP', 'PERCENTAGE WITH EXEMP MED', 'ATTENDANCE PERCENTAGE FROM', 'ATTENDANCE PERCENTAGE TO']
@@ -62,3 +62,4 @@ print(data)
 # ['18XD67', '28', '0', '4', '24', '86', '86', '86', '21-02-2022', '02-04-2022']
 # ['18XD68', '28', '0', '8', '20', '72', '72', '72', '21-02-2022', '02-04-2022']
 # ['18XDA8', '35', '0', '3', '32', '92', '92', '92', '21-02-2022', '02-04-2022']
+print(int(0.75))
