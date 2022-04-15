@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 import json
 import plotly
+import math
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -60,6 +61,55 @@ def send_attendance(username,pwd):
         else:
             res = {"error" : "Invalid details try again"}
             return jsonify(res)
+
+@app.route('/senddata_attendance',methods=['POST'])
+def send_attendance():
+    try : 
+        input_json = request.get_json(force=True)
+        courses = input_json['class_code']
+        total_class = input_json['total_hours']
+        total_present = input_json['total_present']
+        threshold = input_json['threshold']
+
+        if (len(courses) == len(total_class)) and (len(total_present) == len(total_class)) and (len(total_present) == len(courses)):
+            response_data = {}
+            for item in range(len(courses)):
+                temp = {}
+                temp['total_hours'] = int(total_class[item])
+                temp['total_present'] = int(total_present[item])
+                percentage_of_attendance = temp['total_present']/temp['total_hours']
+
+                if percentage_of_attendance <= 75:
+                    temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
+                
+                else:
+                    temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold*temp['total_hours']))/(threshold))
+
+                response_data[courses[item]] = temp
+
+            return jsonify(response_data)
+        
+        else:
+            response = {"error" : "check input details!!"}
+            return jsonify(response)
+
+        
+    except:
+        response = {"error" : "Given input details does not match up!!"}
+        return jsonify(response)
+
+
+
+
+
+
+
+
+    
+
+    
+
+
 
 
 
