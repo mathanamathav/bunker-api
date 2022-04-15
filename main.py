@@ -63,7 +63,7 @@ def send_attendance(username,pwd):
             return jsonify(res)
 
 @app.route('/senddata_attendance',methods=['POST'])
-def send_attendance():
+def senddata_attendance():
     try : 
         input_json = request.get_json(force=True)
         courses = input_json['class_code']
