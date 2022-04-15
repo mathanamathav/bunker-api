@@ -8,6 +8,122 @@
 
 Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
 
+----
+
+**Bunker-API-AnyONE**
+----
+  The API call takes total class_code,total_class,total_present and threshold as input and return days to take leave or not!!.
+
+* **URL**
+
+  https://bunker-api-prj.herokuapp.com/senddata_attendance
+
+* **Method:**
+
+  `POST`  
+  
+*  **URL Params**
+   
+   None
+   
+* **Data Params**
+
+   **Required:**
+   
+   ```
+    POST /senddata_attendance HTTP/1.1
+    Host: bunker-api-prj.herokuapp.com
+    Content-Type: application/json
+    Content-Length: 186
+
+    {
+      "class_code" : ["ABC101","ABC102","ABC103","ABC104","ABC105"],
+      "total_hours" : ["35","35","32","34","35"],
+      "total_present" : ["20","30","32","25","19"],
+      "threshold" : "75"
+
+    }
+    ```
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+     
+    {
+      "ABC101": {
+          "class_to_attend": 25,
+          "percentage_of_attendance": 0.57,
+          "total_hours": 35,
+          "total_present": 20
+      },
+      "ABC102": {
+          "class_to_bunk": 5,
+          "percentage_of_attendance": 0.86,
+          "total_hours": 35,
+          "total_present": 30
+      },
+      "ABC103": {
+          "class_to_bunk": 10,
+          "percentage_of_attendance": 1.0,
+          "total_hours": 32,
+          "total_present": 32
+      },
+      "ABC104": {
+          "class_to_attend": 2,
+          "percentage_of_attendance": 0.74,
+          "total_hours": 34,
+          "total_present": 25
+      },
+      "ABC105": {
+          "class_to_attend": 29,
+          "percentage_of_attendance": 0.54,
+          "total_hours": 35,
+          "total_present": 19
+      }
+    }
+    ```
+
+ 
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "error" : "Given input details does not match up!!"
+    }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  fetch('https://bunker-api-prj.herokuapp.com/senddata_attendance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                      
+                      "class_code" : ["ABC101","ABC102","ABC103","ABC104","ABC105"],
+                      "total_hours" : ["35","35","32","34","35"],
+                      "total_present" : ["20","30","32","25","19"],
+                      "threshold" : "75"
+                                
+                                })
+        })
+            .then(resp => resp.text())
+            .then(response => {
+                var js = JSON.parse(response);
+                console.log(js);
+            }
+            )
+            .catch(error => console.log(error))
+  ```
+
+----
+
 
 **Bunker-API**
 ----
