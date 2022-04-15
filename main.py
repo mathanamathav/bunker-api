@@ -70,6 +70,8 @@ def senddata_attendance():
         total_class = input_json['total_hours']
         total_present = input_json['total_present']
         threshold = int(input_json['threshold'])
+        threshold = (threshold/100)
+
 
         if (len(courses) == len(total_class)) and (len(total_present) == len(total_class)) and (len(total_present) == len(courses)):
             response_data = {}
@@ -78,10 +80,10 @@ def senddata_attendance():
                 temp['total_hours'] = int(total_class[item])
                 temp['total_present'] = int(total_present[item])
                 percentage_of_attendance = temp['total_present']/temp['total_hours']
-                percentage_of_attendance = round(percentage_of_attendance,2)
+                percentage_of_attendance = round(percentage_of_attendance)
 
                 temp['percentage_of_attendance'] = percentage_of_attendance
-                if (percentage_of_attendance) <= (threshold/100):
+                if (percentage_of_attendance) <= (threshold):
                     temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
                 
                 else:
