@@ -121,6 +121,11 @@ Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
             )
             .catch(error => console.log(error))
   ```
+* **Notes:**
+
+  Check out the API checking website with input and response [link](https://reqbin.com/pocyrwrd)
+
+
 
 ----
 
