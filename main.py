@@ -1,4 +1,3 @@
-from turtle import width
 from flask import Flask, request, render_template,jsonify,flash
 import bunker_mod as bk
 import requests
