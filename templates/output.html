@@ -53,6 +53,9 @@
 <center>
 	<div id='chart3' class='chart' ”></div>
 </center>
+<center>
+	<div id='chart4' class='chart' ”></div>
+</center>
 
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
@@ -64,6 +67,10 @@
 
 	var graphs = {{ graphJSON3 | safe}};
 	Plotly.plot('chart3', graphs, {});
+
+	var graphs = {{ graphJSON4 | safe}};
+	Plotly.plot('chart4', graphs, {});
+
 
 </script>
 

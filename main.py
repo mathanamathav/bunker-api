@@ -1,3 +1,4 @@
+from turtle import width
 from flask import Flask, request, render_template,jsonify,flash
 import bunker_mod as bk
 import requests
@@ -20,7 +21,10 @@ def gfg():
     if request.method == "POST":
         username = request.form.get("usr")
         pwd = request.form.get("pwd")
+
+
         table = bk.return_attendance(username,pwd)
+
         if table != "Invalid password" and table != "Try again after some time":
             
             res = bk.data_json(table)
@@ -28,11 +32,19 @@ def gfg():
             courses = []
             total_class = []
             total_present = []
+            specs = []
+            subplot_titles = []
+            labels = ['total_hours','total_present']
 
             for course in res:
                 courses.append(course)
                 total_class.append(res[course]['total_hours'])
                 total_present.append(res[course]['total_present'])
+                specs.append([{'type':'domain'}])
+                subplot_titles.append("Course Code "+course)
+                
+
+            
 
 
             graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
@@ -41,10 +53,11 @@ def gfg():
 
             graphJSON3 = bk.pie_chart(courses,total_present,"Distribution of Attendance")
 
+            graphJSON4 = bk.many_pieplot(res,specs,subplot_titles,labels,total_class,total_present)
 
 
 
-            return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3)
+            return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
         else:
             return render_template("output.html",load=False)
         
