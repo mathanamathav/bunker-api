@@ -1,6 +1,11 @@
 **Bunker-Website**
 ----
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)
+![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)
+
+
   This is a GUI version of the Bunker-API along with some visualization charts to see your attendence.
   > ![image](https://user-images.githubusercontent.com/62739618/163450385-539888fd-f00b-431f-8881-ea2057722f81.png)
  
