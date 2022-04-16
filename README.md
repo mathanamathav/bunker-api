@@ -6,7 +6,7 @@
 ![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)
 
 
-  This is a GUI version of the Bunker-API along with some visualization charts to see your attendence.
+This is a GUI version of the Bunker-API along with some visualization charts to see your attendance progress.
   > ![image](https://user-images.githubusercontent.com/62739618/163450385-539888fd-f00b-431f-8881-ea2057722f81.png)
  
 ## Website Link
