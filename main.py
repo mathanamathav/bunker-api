@@ -24,7 +24,7 @@ def gfg():
 
         table = bk.return_attendance(username,pwd)
 
-        if table != "Invalid password" and table != "Try again after some time":
+        if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
             
             res = bk.data_json(table)
 
@@ -58,7 +58,7 @@ def gfg():
 
             return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
         else:
-            return render_template("output.html",load=False)
+            return render_template("output.html",load=False,text=table)
         
     return render_template("home.html")
 
@@ -67,7 +67,7 @@ def send_attendance(username,pwd):
     if request.method == "POST":
         try: 
             table = bk.return_attendance(username,pwd)
-            if table != "Invalid password" and table != "Try again after some time":
+            if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
                 res = bk.data_json(table)
 
                 return jsonify(res)

@@ -136,6 +136,7 @@ def return_attendance(username,pwd):
         }
         
         response = session.post(url=r.url, data=item_request_body, headers={"Referer": r.url})
+        val = response.url
 
         if response.status_code == 200:
 
@@ -143,10 +144,17 @@ def return_attendance(username,pwd):
         
             page = session.get(defaultpage)
             soup = BeautifulSoup(page.text,"html.parser")
+
+
         
             data = []
             column = []
             table = soup.find('table', attrs={'class':'cssbody'})
+
+            if table == None:
+                message = str(soup.find('span', attrs={'id':'Message'}))
+                if "On Process" in message:
+                    return "Table is being updated"
         
             try:
                 rows = table.find_all('tr')
