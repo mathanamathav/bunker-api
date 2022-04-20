@@ -1,10 +1,10 @@
-{% include 'home.html' %}
+{% extends  'home.html' %}
 <!-- <-- <ul>
 	{% for val in table %}
 	<li>{{ val }}</li>
 	{% endfor %}
 </ul> -->
-{% block body %}
+{% block content  %}
 
 {% if load%}
 {% for key, value in data.items() %}
@@ -34,15 +34,9 @@
 
 <center>
 	<h1 style="font-family: 'Press Start 2P', cursive;">
-		Visualization
-		of
-		your
-		Attendance
+		Stats for nerds
 	</h1>
 </center>
-
-
-<!-- {{data}} -->
 
 <center>
 	<div id='chart' class='chart' ”></div>
@@ -56,6 +50,16 @@
 <center>
 	<div id='chart4' class='chart' ”></div>
 </center>
+
+<center>
+	<h4 style="font-family: 'Press Start 2P', cursive;">
+		App in development!!
+	</h4>
+</center>
+
+<br>
+<br>
+
 
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
@@ -78,8 +82,6 @@
 {% else %}
 
 <script>
-	// var text = string("\""+{{text}}+"\"");
-
 	alert('{{ text }}');
 </script>
 
