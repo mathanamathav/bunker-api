@@ -80,12 +80,15 @@ def data_json(data):
         here we convert the data to json format calculate the amount days we have to take leave.
     """
     index_required = [0,1,4,5,8,9]
-    response_data = {}
+    response_data = []
     threshold = 0.75
 
     for item in range(1,len(data)):
         item = data[item]
         temp = {}
+
+        temp['name'] = item[index_required[0]]
+
         
         j = 1
         temp['total_hours'] = int(item[index_required[j]])
@@ -106,7 +109,7 @@ def data_json(data):
         j += 1
         temp['attendance_to'] = (item[index_required[j]])
         
-        response_data[item[index_required[0]]] = temp
+        response_data.append(temp)
     
     return response_data
 

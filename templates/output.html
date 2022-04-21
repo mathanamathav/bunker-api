@@ -6,22 +6,24 @@
 </ul> -->
 {% block content  %}
 
+<!-- {{data}} -->
 {% if load%}
-{% for key, value in data.items() %}
+{% for key in data %}
 <br>
 <center>
-	<h1 style="font-family: 'Bangers', cursive;">Course Code - {{ key }}</h1>
+	<h1 style="font-family: 'Bebas Neue', cursive;">Course Code - {{ key['name'] }}</h1>
 	<hr style="width:50%;height:2px;border: width 4px;">
-	<h4 style="font-family: 'Bangers', cursive;">Total Hours : {{value['total_hours']}}</h4>
-	<h4 style="font-family: 'Bangers', cursive;">Total Present : {{value['total_present']}}</h4>
-	<h4 style="font-family: 'Bangers', cursive;">Percentage of Attendance : {{value['percentage_of_attendance']}}</h4>
-	{% if value.get("class_to_bunk",0) != 0 %}
-	<h2 style="color:green;font-family: 'Bangers', cursive;">Class To Take leave : {{value.get("class_to_bunk",0)}} 👍
+	<h4 style="font-family: 'Bebas Neue', cursive;">Updated date : {{key['attendance_to']}}</h4>
+
+	<h4 style="font-family: 'Bebas Neue', cursive;">Total Hours : {{key['total_hours']}}</h4>
+	<h4 style="font-family: 'Bebas Neue', cursive;">Total Present : {{key['total_present']}}</h4>
+	<h4 style="font-family: 'Bebas Neue', cursive;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
+	{% if key.get("class_to_bunk",0) != 0 %}
+	<h2 style="color:green;font-family: 'Bebas Neue', cursive;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
 	</h2>
 	{% else %}
-	<h2 style="color:red;font-family: 'Bangers', cursive;">Class To Attend : {{value.get("class_to_attend",0)}} 👎</h2>
+	<h2 style="color:red;font-family: 'Bebas Neue', cursive;">Class To Attend : {{key.get("class_to_attend",0)}} 👎</h2>
 	{% endif %}
-	<h4 style="font-family: 'Bangers', cursive;">Updated date : {{value['attendance_to']}}</h4>
 
 
 </center>

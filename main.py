@@ -36,11 +36,12 @@ def gfg():
             labels = ['total_hours','total_present']
 
             for course in res:
-                courses.append(course)
-                total_class.append(res[course]['total_hours'])
-                total_present.append(res[course]['total_present'])
+
+                courses.append(course['name'])
+                total_class.append(course['total_hours'])
+                total_present.append(course['total_present'])
                 specs.append([{'type':'domain'}])
-                subplot_titles.append("Course Code "+course)
+                subplot_titles.append("Course Code "+course['name'])
                 
 
             
