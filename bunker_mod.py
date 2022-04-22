@@ -170,7 +170,7 @@ def return_attendance(username,pwd):
                 # df = pd.DataFrame(data, columns=column)
                 # res = df.to_json(orient="split")
                 # return res
-                return data
+                return data,session
             except:
                 return "Invalid password"
         else:
@@ -178,4 +178,36 @@ def return_attendance(username,pwd):
     
     except:
         return "Try again after some time"
+
+
+def return_timetable(session):
+    defaultpage = 'https://ecampus.psgtech.ac.in/studzone2/AttWfStudTimtab.aspx'
+
+    page = session.get(defaultpage)
+    soup = BeautifulSoup(page.text,"html.parser")
+
+
+
+    data = []
+    table = soup.find('table', attrs={'id':'TbCourDesc'})
+
+    if table == None:
+        return "no data"
+
+    try:
+        rows = table.find_all('tr')
+        for index,row in enumerate(rows):
+            
+            cols = row.find_all('td')
+            cols = [ele.text.strip() for ele in cols]
+            data.append([ele for ele in cols if ele]) 
+        
+        class_id = {}
+        for i in range(1,len(data)):
+            class_id[data[i][0]] = data[i][1]
+
+    
+        return class_id
+    except:
+        return "no data"
 

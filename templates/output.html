@@ -12,6 +12,10 @@
 <br>
 <center>
 	<h1 style="font-family: 'Bebas Neue', cursive;">Course Code - {{ key['name'] }}</h1>
+	{% if time_table[key['name']] != "no data" %}
+		<h3 style="font-family: 'Bebas Neue', cursive;">{{ time_table[key['name']] }}</h3>
+	{% endif %}
+
 	<hr style="width:50%;height:2px;border: width 4px;">
 	<h4 style="font-family: 'Bebas Neue', cursive;">Updated date : {{key['attendance_to']}}</h4>
 

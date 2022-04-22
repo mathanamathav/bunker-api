@@ -22,7 +22,7 @@ def gfg():
         pwd = request.form.get("pwd")
 
 
-        table = bk.return_attendance(username,pwd)
+        table,session = bk.return_attendance(username,pwd)
 
         if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
             
@@ -44,7 +44,7 @@ def gfg():
                 subplot_titles.append("Course Code "+course['name'])
                 
 
-            
+            time_table = bk.return_timetable(session)
 
 
             graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
@@ -57,7 +57,7 @@ def gfg():
 
 
 
-            return render_template("output.html",load=True,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
+            return render_template("output.html",load=True,time_table=time_table,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
         else:
             return render_template("output.html",load=False,text=table)
         
@@ -67,7 +67,7 @@ def gfg():
 def send_attendance(username,pwd):
     if request.method == "POST":
         try: 
-            table = bk.return_attendance(username,pwd)
+            table,session = bk.return_attendance(username,pwd)
             if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
                 res = bk.data_json(table)
 
