@@ -21,8 +21,12 @@ def gfg():
         username = request.form.get("usr")
         pwd = request.form.get("pwd")
 
+        try:
+            table,session = bk.return_attendance(username,pwd)
+        except:
+            table = bk.return_attendance(username,pwd)
 
-        table,session = bk.return_attendance(username,pwd)
+
 
         if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
             
@@ -67,7 +71,11 @@ def gfg():
 def send_attendance(username,pwd):
     if request.method == "POST":
         try: 
-            table,session = bk.return_attendance(username,pwd)
+            try:
+                table,session = bk.return_attendance(username,pwd)
+            except:
+                table = bk.return_attendance(username,pwd)
+
             if table != "Invalid password" and table != "Try again after some time" and table != "Table is being updated":
                 res = bk.data_json(table)
 
