@@ -192,7 +192,7 @@ def return_timetable(session):
     table = soup.find('table', attrs={'id':'TbCourDesc'})
 
     if table == None:
-        return "no data"
+        return {"error" : "no data"}
 
     try:
         rows = table.find_all('tr')
@@ -209,5 +209,5 @@ def return_timetable(session):
     
         return class_id
     except:
-        return "no data"
+        return {"error" : "no data"}
 

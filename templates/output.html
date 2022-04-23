@@ -12,7 +12,7 @@
 <br>
 <center>
 	<h1 style="font-family: 'Bebas Neue', cursive;">Course Code - {{ key['name'] }}</h1>
-	{% if time_table[key['name']] != "no data" %}
+	{% if time_table.get(key['name'],"") != "" %}
 		<h3 style="font-family: 'Bebas Neue', cursive;">{{ time_table.get(key['name'],"") }}</h3>
 	{% endif %}
 
