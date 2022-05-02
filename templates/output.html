@@ -7,7 +7,36 @@
 {% block content  %}
 
 <!-- {{data}} -->
-{% if load%}
+{% if load %}
+
+	<div class="container">
+		<table class="table table-borderless text-center" align="center" style="margin: 0px auto;">
+			<thead>
+			<tr>
+				<th scope="col">COURSE</th>
+				<th scope="col">PERCENTAGE</th>
+				<th scope="col">REMARK</th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for key in data %}
+				<tr>
+					<td>{{ key['name'] }}</td>
+					<td>{{key['percentage_of_attendance']}}</td>
+					{% if key.get("class_to_bunk",0) != 0 %}
+						<td>Take leave : {{key.get("class_to_bunk",0)}}</td>
+					{% else %}
+						<td>Attend : {{key.get("class_to_attend",0)}}</td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<br>
+	<br>
+
+
 {% for key in data %}
 <br>
 <center>

@@ -6,6 +6,8 @@ body {
   background-attachment: fixed;
 
 }
+
+
 .allButFooter {
   min-height: calc(100vh - 40px);
 }
