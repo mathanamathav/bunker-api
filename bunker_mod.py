@@ -79,7 +79,7 @@ def data_json(data):
     """
         here we convert the data to json format calculate the amount days we have to take leave.
     """
-    index_required = [0,1,4,5,8,9]
+    index_required = [0,1,4,7,8,9]
     response_data = []
     threshold = 0.75
 
