@@ -96,6 +96,7 @@ def data_json(data):
         temp['exception_hour'] = int(item[index_required[j]]) #2
         j += 1
         temp['total_present'] = int(item[index_required[j]]) #4
+        temp['total_present'] += temp['exception_hour']
         j += 1
         temp['percentage_of_attendance'] = int(item[index_required[j]]) 
 
