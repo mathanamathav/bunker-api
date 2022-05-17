@@ -53,7 +53,7 @@ def line_chart(courses,total_class,total_present,title):
     title=title)
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return graphJSON
+    return graphJSON 
 
 
 
