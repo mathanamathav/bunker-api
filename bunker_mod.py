@@ -79,7 +79,7 @@ def data_json(data):
     """
         here we convert the data to json format calculate the amount days we have to take leave.
     """
-    index_required = [0,1,4,7,8,9]
+    index_required = [0,1,2,4,7,8,9]
     response_data = []
     threshold = 0.75
 
@@ -91,11 +91,13 @@ def data_json(data):
 
         
         j = 1
-        temp['total_hours'] = int(item[index_required[j]])
+        temp['total_hours'] = int(item[index_required[j]]) #1
         j += 1
-        temp['total_present'] = int(item[index_required[j]])
+        temp['exception_hour'] = int(item[index_required[j]]) #2
         j += 1
-        temp['percentage_of_attendance'] = int(item[index_required[j]])
+        temp['total_present'] = int(item[index_required[j]]) #4
+        j += 1
+        temp['percentage_of_attendance'] = int(item[index_required[j]]) 
 
         if temp['percentage_of_attendance'] <= 75:
             temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
