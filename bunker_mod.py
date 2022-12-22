@@ -1,76 +1,76 @@
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
+# import pandas as pd
 import math
-import json
-import plotly
-import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+# import json
+# import plotly
+# import plotly.express as px
+# import plotly.graph_objects as go
+# from plotly.subplots import make_subplots
 
 
-def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
-    """
-        This function is to plot sub-pie-chart 
-    """
+# def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
+#     """
+#         This function is to plot sub-pie-chart 
+#     """
 
-    fig = make_subplots(rows=len(res), cols=1,specs=specs,subplot_titles=subplot_titles)
+#     fig = make_subplots(rows=len(res), cols=1,specs=specs,subplot_titles=subplot_titles)
 
-    for i in range(len(res)):
-        # Define pie charts
-        fig.add_trace(go.Pie(labels=labels, values=[total_class[i],total_present[i]]
-                            ), row=i+1, col=1)
+#     for i in range(len(res)):
+#         # Define pie charts
+#         fig.add_trace(go.Pie(labels=labels, values=[total_class[i],total_present[i]]
+#                             ), row=i+1, col=1)
 
 
 
-    fig.update_layout(height=250*len(res))
-    fig.update_layout({
-        'plot_bgcolor':'rgba(0,0,0,0)',
-        'paper_bgcolor': 'rgba(0,0,0,0)'
-    },showlegend=True,
-    title="Class-Wise view")
-
-    
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return graphJSON
-
+#     fig.update_layout(height=250*len(res))
+#     fig.update_layout({
+#         'plot_bgcolor':'rgba(0,0,0,0)',
+#         'paper_bgcolor': 'rgba(0,0,0,0)'
+#     },showlegend=True,
+#     title="Class-Wise view")
 
     
+#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#     return graphJSON
 
-def line_chart(courses,total_class,total_present,title):
-    """
-        This function is to plot line chart Present vs Total
-    """
-    fig = go.Figure(data=[
-                    go.Bar(name='Total Class', x=courses, y=total_class),
-                    go.Bar(name='Total Present', x=courses, y=total_present)
-        ])
-    # fig = px.bar(df, x='course_code', y='total_class', color='course_code', barmode='group')
-    fig.update_layout({
-        'plot_bgcolor':'rgba(0,0,0,0)',
-        'paper_bgcolor': 'rgba(0,0,0,0)'
-    },showlegend=True,
-    title=title)
+
     
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return graphJSON 
+
+# def line_chart(courses,total_class,total_present,title):
+#     """
+#         This function is to plot line chart Present vs Total
+#     """
+#     fig = go.Figure(data=[
+#                     go.Bar(name='Total Class', x=courses, y=total_class),
+#                     go.Bar(name='Total Present', x=courses, y=total_present)
+#         ])
+#     # fig = px.bar(df, x='course_code', y='total_class', color='course_code', barmode='group')
+#     fig.update_layout({
+#         'plot_bgcolor':'rgba(0,0,0,0)',
+#         'paper_bgcolor': 'rgba(0,0,0,0)'
+#     },showlegend=True,
+#     title=title)
+    
+#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#     return graphJSON 
 
 
 
-def pie_chart(label,value,title):
-    """
-        This function is to plot pie chart
-    """
-    fig = go.Figure(data=[go.Pie(labels=label, values=value, hole=.3)])
-    fig.update_layout({
-        'plot_bgcolor':'rgba(0,0,0,0)',
-        'paper_bgcolor': 'rgba(0,0,0,0)'
-    }
-    ,showlegend=True,
-    title=title)
+# def pie_chart(label,value,title):
+#     """
+#         This function is to plot pie chart
+#     """
+#     fig = go.Figure(data=[go.Pie(labels=label, values=value, hole=.3)])
+#     fig.update_layout({
+#         'plot_bgcolor':'rgba(0,0,0,0)',
+#         'paper_bgcolor': 'rgba(0,0,0,0)'
+#     }
+#     ,showlegend=True,
+#     title=title)
 
-    graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return graphJSON2
+#     graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+#     return graphJSON2
 
 
 
