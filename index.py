@@ -1,12 +1,11 @@
 from flask import Flask, request, render_template,jsonify,flash
 import bunker_mod as bk
-import requests
+# import requests
 import pandas as pd
-import json
-import plotly
+# import plotly
 import math
-import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.express as px
+# import plotly.graph_objects as go
 
 
 
@@ -51,17 +50,17 @@ def gfg():
             time_table = bk.return_timetable(session)
 
 
-            graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
+            # graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
             
-            graphJSON2 = bk.pie_chart(courses,total_class,"Distribution of Classes")
+            # graphJSON2 = bk.pie_chart(courses,total_class,"Distribution of Classes")
 
-            graphJSON3 = bk.pie_chart(courses,total_present,"Distribution of Attendance")
+            # graphJSON3 = bk.pie_chart(courses,total_present,"Distribution of Attendance")
 
-            graphJSON4 = bk.many_pieplot(res,specs,subplot_titles,labels,total_class,total_present)
+            # graphJSON4 = bk.many_pieplot(res,specs,subplot_titles,labels,total_class,total_present)
 
 
-
-            return render_template("output.html",load=True,time_table=time_table,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
+            return render_template("output.html",load=True,time_table=time_table,data=res)
+            # return render_template("output.html",load=True,time_table=time_table,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
         else:
             return render_template("output.html",load=False,text=table)
         
