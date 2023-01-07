@@ -303,3 +303,4 @@ def return_cgpa(session):
     }
 
     return res
+
