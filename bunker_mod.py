@@ -299,7 +299,7 @@ def return_cgpa(session):
 
     res = {
         'lastest_sem' : latest_sem,
-        'latest_sem_cgpa' : latest_cgpa 
+        'latest_sem_cgpa' : round(latest_cgpa, 3) 
     }
 
     return res
