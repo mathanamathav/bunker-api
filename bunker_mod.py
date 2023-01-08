@@ -7,6 +7,7 @@ import math
 # import plotly.express as px
 # import plotly.graph_objects as go
 # from plotly.subplots import make_subplots
+import pandas as pd
 
 
 # def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
@@ -213,4 +214,93 @@ def return_timetable(session):
         return class_id
     except:
         return {"error" : "no data"}
+
+def gradeMap(grade):
+  grade_score_map = {
+      'O':10,
+      'A+':9,
+      'A':8,
+      'B+':7,
+      'B':6,
+      'C+':5,
+      'C':4,
+      'W':0,
+      'RA':0,
+      'SA':0
+  }
+  return grade_score_map[grade]
+
+def return_cgpa(session):
+    resultspage = 'https://ecampus.psgtech.ac.in/studzone2/FrmEpsStudResult.aspx'
+        
+    page = session.get(resultspage)
+    soup = BeautifulSoup(page.text,"html.parser")
+
+    lastest_sem_data = []
+    table = soup.find('table', attrs={'id':"DgResult"})
+
+    if table != None:
+        try:
+            rows = table.find_all('tr')
+            for index,row in enumerate(rows):
+                
+                cols = row.find_all('td')
+                cols = [ele.text.strip() for ele in cols]
+                lastest_sem_data.append([ele for ele in cols if ele])
+        except:
+            lastest_sem_data = {"error" : "no data"}
+    else:
+        lastest_sem_data = {"error" : "no data"}
+
+    coursepage = 'https://ecampus.psgtech.ac.in/studzone2/AttWfStudCourseSelection.aspx'
+
+    page = session.get(coursepage)
+    soup = BeautifulSoup(page.text,"html.parser")
+
+    data = []
+    table = soup.find('table', attrs={'id':"PDGCourse"})
+
+    if table != None:
+        try:
+            rows = table.find_all('tr')
+            for index,row in enumerate(rows):
+                
+                cols = row.find_all('td')
+                cols = [ele.text.strip() for ele in cols]
+                data.append([ele for ele in cols if ele])
+        except:
+            return {"error" : "no data"}
+    else:
+        return {"error" : "no data"}
+
+    latest_sem_no = lastest_sem_data[1][0]
+
+    cols = data.pop(0)
+    df = pd.DataFrame(data, columns=cols)
+
+    # Add latest sem results of not available
+    if latest_sem_no not in df['COURSE SEM']:
+        latest_sem_record = {
+            'COURSE CODE':lastest_sem_data[1][1], 
+            'COURSE TITLE':lastest_sem_data[1][2], 
+            'COURSE SEM':lastest_sem_data[1][0],
+            'GRADE':lastest_sem_data[1][4].split()[1], 
+            'CREDITS':lastest_sem_data[1][3]
+        }
+        df = df.append(latest_sem_record, ignore_index=True)
+
+
+    # CPGA calculation
+    latest_sem = df['COURSE SEM'].max()
+    df['CREDITS']=df['CREDITS'].astype(int)
+    df['GRADE'] = df['GRADE'].apply(gradeMap)
+    df['COURSE SCORE'] = df['GRADE'] * df['CREDITS']
+    latest_cgpa = df['COURSE SCORE'].sum() / df['CREDITS'].sum()
+
+    res = {
+        'lastest_sem' : latest_sem,
+        'latest_sem_cgpa' : round(latest_cgpa, 3) 
+    }
+
+    return res
 

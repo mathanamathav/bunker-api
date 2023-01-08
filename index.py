@@ -49,6 +49,8 @@ def gfg():
 
             time_table = bk.return_timetable(session)
 
+            cgpa_details = bk.return_cgpa(session)
+
 
             # graphJSON = bk.line_chart(courses,total_class,total_present,"Bar plot -- (Total Class VS present)")
             
@@ -58,8 +60,7 @@ def gfg():
 
             # graphJSON4 = bk.many_pieplot(res,specs,subplot_titles,labels,total_class,total_present)
 
-
-            return render_template("output.html",load=True,time_table=time_table,data=res)
+            return render_template("output.html",load=True,time_table=time_table,data=res,cgpa=cgpa_details)
             # return render_template("output.html",load=True,time_table=time_table,data=res,graphJSON=graphJSON,graphJSON2=graphJSON2,graphJSON3=graphJSON3,graphJSON4=graphJSON4)
         else:
             return render_template("output.html",load=False,text=table)
