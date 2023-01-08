@@ -11,7 +11,7 @@ This is a GUI version of the Bunker-API along with some visualization charts to 
  
 ## Website Link
 
-Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
+Check out the website [link](https://bunker-api.vercel.app/ )😎
 
 ----
 
@@ -21,7 +21,7 @@ Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
 
 * **URL**
 
-  https://bunker-api-prj.herokuapp.com/senddata_attendance
+  https://bunker-api.vercel.app/senddata_attendance
 
 * **Method:**
 
@@ -141,7 +141,7 @@ Check out the website [link](https://bunker-api-prj.herokuapp.com/)😎
 
 * **URL**
 
-  https://bunker-api-prj.herokuapp.com/send_attendance/<_rollno_>/<_pwd_>
+  https://bunker-api.vercel.app/send_attendance/<_rollno_>/<_pwd_>
 
 * **Method:**
 
