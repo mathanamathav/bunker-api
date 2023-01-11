@@ -216,19 +216,23 @@ def return_timetable(session):
         return {"error" : "no data"}
 
 def gradeMap(grade):
-  grade_score_map = {
-      'O':10,
-      'A+':9,
-      'A':8,
-      'B+':7,
-      'B':6,
-      'C+':5,
-      'C':4,
-      'W':0,
-      'RA':0,
-      'SA':0
-  }
-  return grade_score_map[grade]
+    grade_score_map = {
+        'O':10,
+        'A+':9,
+        'A':8,
+        'B+':7,
+        'B':6,
+        'C+':5,
+        'C':4,
+        'W':0,
+        'RA':0,
+        'SA':0
+    }
+    
+    if grade not in grade_score_map.keys():
+        return 0
+
+    return grade_score_map[grade]
 
 def return_cgpa(session):
     resultspage = 'https://ecampus.psgtech.ac.in/studzone2/FrmEpsStudResult.aspx'
@@ -236,7 +240,7 @@ def return_cgpa(session):
     page = session.get(resultspage)
     soup = BeautifulSoup(page.text,"html.parser")
 
-    lastest_sem_data = []
+    latest_sem_data = []
     table = soup.find('table', attrs={'id':"DgResult"})
 
     if table != None:
@@ -246,11 +250,9 @@ def return_cgpa(session):
                 
                 cols = row.find_all('td')
                 cols = [ele.text.strip() for ele in cols]
-                lastest_sem_data.append([ele for ele in cols if ele])
+                latest_sem_data.append([ele for ele in cols if ele])
         except:
-            lastest_sem_data = {"error" : "no data"}
-    else:
-        lastest_sem_data = {"error" : "no data"}
+            print("No results available !!")
 
     coursepage = 'https://ecampus.psgtech.ac.in/studzone2/AttWfStudCourseSelection.aspx'
 
@@ -273,22 +275,17 @@ def return_cgpa(session):
     else:
         return {"error" : "no data"}
 
-    latest_sem_no = lastest_sem_data[1][0]
-
     cols = data.pop(0)
     df = pd.DataFrame(data, columns=cols)
 
-    # Add latest sem results of not available
-    if latest_sem_no not in df['COURSE SEM']:
-        latest_sem_record = {
-            'COURSE CODE':lastest_sem_data[1][1], 
-            'COURSE TITLE':lastest_sem_data[1][2], 
-            'COURSE SEM':lastest_sem_data[1][0],
-            'GRADE':lastest_sem_data[1][4].split()[1], 
-            'CREDITS':lastest_sem_data[1][3]
-        }
-        df = df.append(latest_sem_record, ignore_index=True)
+    # Add latest sem results if available
+    if len(latest_sem_data) != 0:
+        latest_sem_data.pop(0)
+        latest_sem_records = pd.DataFrame(latest_sem_data, columns=['COURSE SEM', 'COURSE CODE', 'COURSE TITLE', 'CREDITS', 'GRADE', 'RESULT'])
+        latest_sem_records['GRADE'] = latest_sem_records['GRADE'].str.split().str[-1]
 
+        df = df.append(latest_sem_records, ignore_index=True)
+        df.drop_duplicates(subset="COURSE CODE", keep="last", inplace=True)
 
     # CPGA calculation
     latest_sem = df['COURSE SEM'].max()
