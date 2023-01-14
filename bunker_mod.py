@@ -275,6 +275,9 @@ def return_cgpa(session):
             print("No Course Info available !!")
     else:
         print("No Course Info available !!")
+    
+    if len(data) == 0 and len(latest_sem_data) == 0:
+        return {'error': 'No data'}
 
     global df
     global latest_sem_records
