@@ -8,6 +8,7 @@ import math
 # import plotly.graph_objects as go
 # from plotly.subplots import make_subplots
 import pandas as pd
+import numpy as np
 
 
 # def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
@@ -249,7 +250,7 @@ def return_cgpa(session):
             for index,row in enumerate(rows):
                 
                 cols = row.find_all('td')
-                cols = [ele.text.strip() for ele in cols]
+                cols = [ele.text for ele in cols]
                 latest_sem_data.append([ele for ele in cols if ele])
         except:
             print("No results available !!")
@@ -271,21 +272,31 @@ def return_cgpa(session):
                 cols = [ele.text.strip() for ele in cols]
                 data.append([ele for ele in cols if ele])
         except:
-            return {"error" : "no data"}
+            print("No Course Info available !!")
     else:
-        return {"error" : "no data"}
+        print("No Course Info available !!")
 
-    cols = data.pop(0)
-    df = pd.DataFrame(data, columns=cols)
-
-    # Add latest sem results if available
+    global df
+    global latest_sem_records
+    
+    # Preprocess latest sem results if available
     if len(latest_sem_data) != 0:
         latest_sem_data.pop(0)
         latest_sem_records = pd.DataFrame(latest_sem_data, columns=['COURSE SEM', 'COURSE CODE', 'COURSE TITLE', 'CREDITS', 'GRADE', 'RESULT'])
         latest_sem_records['GRADE'] = latest_sem_records['GRADE'].str.split().str[-1]
+        latest_sem_records['COURSE SEM'] = latest_sem_records['COURSE SEM'].replace(r'^\s*$', np.nan, regex=True)
+        latest_sem_records['COURSE SEM'].fillna(method='ffill', inplace=True)
 
-        df = df.append(latest_sem_records, ignore_index=True)
-        df.drop_duplicates(subset="COURSE CODE", keep="last", inplace=True)
+    try:
+        cols = data.pop(0)
+        df = pd.DataFrame(data, columns=cols)
+
+        # Add latest sem results if available
+        if len(latest_sem_data) != 0:
+            df = df.append(latest_sem_records, ignore_index=True)
+            df.drop_duplicates(subset="COURSE CODE", keep="last", inplace=True)
+    except:
+        df = latest_sem_records.copy()
 
     # CPGA calculation
     latest_sem = df['COURSE SEM'].max()
