@@ -17,6 +17,7 @@ body {
   font-size:3em;
   font-family: 'Press Start 2P', cursive;font-size: 40px;
   font-weight:bold;
+  text-shadow:3px 3px 4px #000000;
   color: #00ADB5;
   opacity:0;
 }
