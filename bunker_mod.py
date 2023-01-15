@@ -81,38 +81,44 @@ def data_json(data):
     """
         here we convert the data to json format calculate the amount days we have to take leave.
     """
-    index_required = [0,1,2,4,7,8,9]
     response_data = []
-    threshold = 0.75
+    threshold = [0.75, 0.60]
 
     for item in range(1,len(data)):
         item = data[item]
         temp = {}
 
-        temp['name'] = item[index_required[0]]
+        # Extract data
+        temp['name'] = item[0]
 
-        
-        j = 1
-        temp['total_hours'] = int(item[index_required[j]]) #1
-        j += 1
-        temp['exception_hour'] = int(item[index_required[j]]) #2
-        j += 1
-        temp['total_present'] = int(item[index_required[j]]) #4
-        temp['total_present'] += temp['exception_hour']
-        j += 1
-        temp['percentage_of_attendance'] = int(item[index_required[j]]) 
+        temp['total_hours'] = int(item[1]) 
+        temp['exception_hour'] = int(item[2]) 
 
-        if temp['percentage_of_attendance'] <= 75:
-            temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
-        
+        temp['total_present'] = int(item[4]) 
+
+        temp['percentage_of_attendance'] = int(item[5]) 
+        temp['percentage_of_attendance_with_exemp'] = int(item[6]) 
+        temp['percentage_of_attendance_with_med_exemp'] = int(item[7]) 
+
+        temp['attendance_from'] = item[8]
+        temp['attendance_to'] = item[9]
+
+        temp['med_exception_hour'] = math.floor(( ( temp['percentage_of_attendance_with_med_exemp'] / 100 ) * temp['total_hours']) - temp['total_present'])
+        temp['total_present_with_exemp'] = temp['total_present'] + temp['exception_hour'] + temp['med_exception_hour']
+
+        # Calculate bunker functionality
+        if temp['percentage_of_attendance'] > 75 :
+            temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold[0]*temp['total_hours']))/(threshold[0]))
         else:
-            temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold*temp['total_hours']))/(threshold))
+            if temp['percentage_of_attendance'] > 60 and (temp['percentage_of_attendance_with_exemp'] > 75 or temp['percentage_of_attendance_with_med_exemp'] > 75 ):
+                temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold[1]*temp['total_hours']))/(threshold[1]))
 
+            elif temp['percentage_of_attendance'] == temp['percentage_of_attendance_with_exemp'] == temp['percentage_of_attendance_with_med_exemp']:
+                temp['class_to_attend'] = math.ceil((threshold[0]*temp['total_hours'] - temp['total_present'])/(1-threshold[0]))
 
-        j += 1
-        temp['attendance_from'] = (item[index_required[j]])
-        j += 1
-        temp['attendance_to'] = (item[index_required[j]])
+            else:
+                temp['class_to_attend'] = max(math.ceil((threshold[1]*temp['total_hours'] - temp['total_present'])/(1-threshold[1])) ,
+                                            math.ceil((threshold[0]*temp['total_hours'] - temp['total_present_with_exemp'])/(1-threshold[0])) )
         
         response_data.append(temp)
     
