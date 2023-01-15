@@ -14,7 +14,8 @@
 			<thead>
 			<tr>
 				<th scope="col">COURSE</th>
-				<th scope="col">PERCENTAGE</th>
+				<th scope="col">PHYSICAL</th>
+				<th scope="col">WITH EXEMPTION</th>
 				<th scope="col">REMARK</th>
 			</tr>
 			</thead>
@@ -23,6 +24,13 @@
 				<tr>
 					<td>{{ key['name'] }}</td>
 					<td>{{key['percentage_of_attendance']}}</td>
+
+					{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
+						<td>{{key['percentage_of_attendance_with_exemp']}}</td>
+					{% else %}
+						<td>{{key['percentage_of_attendance_with_med_exemp']}}</td>
+					{% endif %}
+
 					{% if key.get("class_to_bunk",0) != 0 %}
 						<td>Take leave : {{key.get("class_to_bunk",0)}}</td>
 					{% else %}
@@ -59,6 +67,13 @@
 	<h4 style="font-family: 'Bebas Neue', cursive;">Total Hours : {{key['total_hours']}}</h4>
 	<h4 style="font-family: 'Bebas Neue', cursive;">Total Present : {{key['total_present']}}</h4>
 	<h4 style="font-family: 'Bebas Neue', cursive;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
+
+	{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
+		<h4 style="font-family: 'Bebas Neue', cursive;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_exemp']}}</h4>
+	{% else %}
+		<h4 style="font-family: 'Bebas Neue', cursive;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_med_exemp']}}</h4>
+	{% endif %}
+
 	{% if key.get("class_to_bunk",0) != 0 %}
 	<h2 style="color:green;font-family: 'Bebas Neue', cursive;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
 	</h2>
