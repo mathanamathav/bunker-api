@@ -10,21 +10,29 @@
 {% if load %}
 
 	<div class="container">
-		<table class="table table-borderless text-center" align="center" style="margin: 0px auto;">
+		<table class="table table-sm table-bordered text-center">
 			<thead>
-			<tr>
-				<th scope="col">COURSE</th>
-				<th scope="col">PERCENTAGE</th>
-				<th scope="col">REMARK</th>
+			<tr style="font-family: 'Courier Prime', monospace;font-size: small; color: #00ADB5;text-shadow:2px 2px 4px #000000;">
+				<th scope="col"  style="width: 10%">COURSE</th>
+				<th scope="col"  style="width: 10%">PHYSICAL</th>
+				<th scope="col"  style="width: 10%">WITH EXEMPTION</th>
+				<th scope="col"  style="width: 70%">REMARK</th>
 			</tr>
 			</thead>
 			<tbody>
 				{% for key in data %}
-				<tr>
+				<tr style="font-family: 'Courier Prime', monospace;font-size: small;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">
 					<td>{{ key['name'] }}</td>
 					<td>{{key['percentage_of_attendance']}}</td>
+
+					{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
+						<td>{{key['percentage_of_attendance_with_exemp']}}</td>
+					{% else %}
+						<td>{{key['percentage_of_attendance_with_med_exemp']}}</td>
+					{% endif %}
+					
 					{% if key.get("class_to_bunk",0) != 0 %}
-						<td>Take leave : {{key.get("class_to_bunk",0)}}</td>
+						<td>Bunk : {{key.get("class_to_bunk",0)}}</td>
 					{% else %}
 						<td>Attend : {{key.get("class_to_attend",0)}}</td>
 					{% endif %}
@@ -34,46 +42,57 @@
 		</table>
 	</div>
 	<br>
+	<div class="card" style="background-color: #222831;border-radius: 25px;padding: 10px;">
+		<center>
+			<h4 style="font-family: 'Anton', sans-serif;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">It is best to have a physical attendance of more than 75%.</h4>
+		</center>
+	</div>
 	<br>
 
 	{% if cgpa.get("error", "") == "" %}
-	<hr style="width:50%;height:2px;border: width 6px;">
+	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 	<center class="container">
-		<h3 style="color:blue;font-family: 'Bebas Neue', cursive;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
+		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
 	{% endif %}
 	</center>
 
 
-<hr style="width:50%;height:2px;border: width 6px;">
-{% for key in data %}
-<br>
-<center>
-	<h1 style="font-family: 'Bebas Neue', cursive;">Course Code - {{ key['name'] }}</h1>
-	{% if time_table.get(key['name'],"") != "" %}
-		<h3 style="font-family: 'Bebas Neue', cursive;">{{ time_table.get(key['name'],"") }}</h3>
-	{% endif %}
+	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 
-	<hr style="width:50%;height:2px;border: width 4px;">
-	<h4 style="font-family: 'Bebas Neue', cursive;">Updated date : {{key['attendance_to']}}</h4>
+	{% for key in data %}
+	<br>
+	<div class="card" style="background-color: #222831;border-radius: 25px;">
+	<center>
+		<h1 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">Course Code - {{ key['name'] }}</h1>
+		{% if time_table.get(key['name'],"") != "" %}
+			<h3 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">{{ time_table.get(key['name'],"") }}</h3>
+		{% endif %}
 
-	<h4 style="font-family: 'Bebas Neue', cursive;">Total Hours : {{key['total_hours']}}</h4>
-	<h4 style="font-family: 'Bebas Neue', cursive;">Total Present : {{key['total_present']}}</h4>
-	<h4 style="font-family: 'Bebas Neue', cursive;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
-	{% if key.get("class_to_bunk",0) != 0 %}
-	<h2 style="color:green;font-family: 'Bebas Neue', cursive;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
-	</h2>
-	{% else %}
-	<h2 style="color:red;font-family: 'Bebas Neue', cursive;">Class To Attend : {{key.get("class_to_attend",0)}} 👎</h2>
-	{% endif %}
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Updated date : {{key['attendance_to']}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Hours : {{key['total_hours']}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Present : {{key['total_present']}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
 
+		{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
+			<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_exemp']}}</h4>
+		{% else %}
+			<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_med_exemp']}}</h4>
+		{% endif %}
 
-</center>
+		{% if key.get("class_to_bunk",0) != 0 %}
+		<h2 style="color:green;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
+		</h2>
+		{% else %}
+		<h2 style="color:red;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Attend : {{key.get("class_to_attend",0)}} 👎</h2>
+		{% endif %}
+	</center>
+	</div>
 
-<br>
+	<br>
 
-{% endfor %}
-<br>
-<hr style="width:100%;height:4px;border: width 8px;">
+	{% endfor %}
+
+	<hr style="width:100%;height:2px;border: width 6px;background-color: #EEEEEE;">
 <!-- 
 <center>
 	<h1 style="font-family: 'Press Start 2P', cursive;">
@@ -95,7 +114,7 @@
 </center> -->
 
 <center>
-	<h4 style="font-family: 'Press Start 2P', cursive;">
+	<h4 style="font-family: 'Press Start 2P', cursive;color: #00ADB5;">
 		App in development!!
 	</h4>
 </center>

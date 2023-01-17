@@ -32,8 +32,10 @@
 
 
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bangers&family=Bebas+Neue&family=Bungee&family=Press+Start+2P&family=Rubik+Glitch&family=Square+Peg&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-
-    </head>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,700;1,400&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
+  </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8FZCWK"
@@ -49,16 +51,16 @@
       <div class="container mt-3">
       <form action="{{ url_for("gfg")}}" method="post">
           <div class="form-group">
-            <label for="firstname" style="font-family: 'Rubik Glitch', cursive;">Roll Number</label>
+            <label for="firstname" style="font-family: 'Courier Prime', monospace;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">Roll Number</label>
             <input class="form-control" id="firstname" name="usr" placeholder="Roll Number" style="font-family: 'Bungee', cursive;" >
-            <small id="emailHelp" class="form-text text-muted" style="font-family: 'Square Peg', cursive;" >We'll never share your details with anyone else.</small>
+            <!-- <small id="emailHelp" class="form-text text-muted" style="font-size: '14';font-family: 'Square Peg';">We'll never share your details with anyone else.</small> -->
           </div>
           <div class="form-group">
-            <label for="lastname" style="font-family: 'Rubik Glitch', cursive;">Password</label>
+            <label for="lastname" style="font-family: 'Courier Prime', monospace;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">Password</label>
             <input type="password" class="form-control" name="pwd" id="lastname" placeholder="Password" style="font-family: 'Bungee', cursive;">
           </div>
           
-          <center><button style="font-family: 'Rubik Glitch', cursive;" type="submit" class="btn btn-primary">Login</button></center>
+          <center><button type="submit" class="button button2">Login</button></center>
           
       </form>
       </div>
@@ -76,7 +78,7 @@
       <footer class="page-footer font-small blue">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3" style="color:white">© 2022 Copyright:
+        <div class="footer-copyright text-center py-3" style="color:white">© 2023 Copyright:
           Bunker-API  
           <a href="https://github.com/mathanamathav/bunker-api"><h6>Developed by JPM</h6></a>
         </div>
