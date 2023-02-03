@@ -7,7 +7,7 @@ import bunker_mod as bk
 rest_api = Blueprint("rest_api", __name__, template_folder="templates")
 
 
-@rest_api.route("/send_attendance/<username>/<pwd>", methods=["GET"])
+@rest_api.route("/send_attendance/<username>/<pwd>", methods=["POST"])
 def send_attendance(username: str, pwd: str):
     if request.method == "POST":
         try:
