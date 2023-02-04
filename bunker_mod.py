@@ -11,6 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+
 # def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
 #     """
 #         This function is to plot sub-pie-chart
@@ -99,13 +100,13 @@ def data_json(data):
 
         temp["med_exception_hour"] = math.floor(
             (
-                (temp["percentage_of_attendance_with_med_exemp"] / 100)
-                * temp["total_hours"]
+                    (temp["percentage_of_attendance_with_med_exemp"] / 100)
+                    * temp["total_hours"]
             )
             - temp["total_present"]
         )
         temp["total_present_with_exemp"] = (
-            temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
+                temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
         )
 
         # Calculate bunker functionality
@@ -116,8 +117,8 @@ def data_json(data):
             )
         else:
             if temp["percentage_of_attendance"] > 65 and (
-                temp["percentage_of_attendance_with_exemp"] > 75
-                or temp["percentage_of_attendance_with_med_exemp"] > 75
+                    temp["percentage_of_attendance_with_exemp"] > 75
+                    or temp["percentage_of_attendance_with_med_exemp"] > 75
             ):
                 temp["class_to_bunk"] = math.floor(
                     (temp["total_present"] - (threshold[1] * temp["total_hours"]))
@@ -125,9 +126,9 @@ def data_json(data):
                 )
 
             elif (
-                temp["percentage_of_attendance"]
-                == temp["percentage_of_attendance_with_exemp"]
-                == temp["percentage_of_attendance_with_med_exemp"]
+                    temp["percentage_of_attendance"]
+                    == temp["percentage_of_attendance_with_exemp"]
+                    == temp["percentage_of_attendance_with_med_exemp"]
             ):
                 temp["class_to_attend"] = math.ceil(
                     (threshold[0] * temp["total_hours"] - temp["total_present"])
@@ -142,8 +143,8 @@ def data_json(data):
                     ),
                     math.ceil(
                         (
-                            threshold[0] * temp["total_hours"]
-                            - temp["total_present_with_exemp"]
+                                threshold[0] * temp["total_hours"]
+                                - temp["total_present_with_exemp"]
                         )
                         / (1 - threshold[0])
                     ),
@@ -202,7 +203,6 @@ def return_attendance(username, pwd):
             try:
                 rows = table.find_all("tr")
                 for index, row in enumerate(rows):
-
                     cols = row.find_all("td")
                     cols = [ele.text.strip() for ele in cols]
                     data.append([ele for ele in cols if ele])  # Get rid of empty val
@@ -235,7 +235,6 @@ def return_timetable(session):
     try:
         rows = table.find_all("tr")
         for index, row in enumerate(rows):
-
             cols = row.find_all("td")
             cols = [ele.text.strip() for ele in cols]
             data.append([ele for ele in cols if ele])
@@ -282,7 +281,6 @@ def return_cgpa(session):
         try:
             rows = table.find_all("tr")
             for index, row in enumerate(rows):
-
                 cols = row.find_all("td")
                 cols = [ele.text for ele in cols]
                 latest_sem_data.append([ele for ele in cols if ele])
@@ -301,7 +299,6 @@ def return_cgpa(session):
         try:
             rows = table.find_all("tr")
             for index, row in enumerate(rows):
-
                 cols = row.find_all("td")
                 cols = [ele.text.strip() for ele in cols]
                 data.append([ele for ele in cols if ele])
@@ -319,6 +316,7 @@ def return_cgpa(session):
     # Preprocess latest sem results if available
     if len(latest_sem_data) != 0:
         latest_sem_data.pop(0)
+        print(latest_sem_data)
         latest_sem_records = pd.DataFrame(
             latest_sem_data,
             columns=[
@@ -330,11 +328,15 @@ def return_cgpa(session):
                 "RESULT",
             ],
         )
+        print(latest_sem_records)
         latest_sem_records["GRADE"] = latest_sem_records["GRADE"].str.split().str[-1]
+        print(latest_sem_records["COURSE SEM"])
         latest_sem_records["COURSE SEM"] = latest_sem_records["COURSE SEM"].replace(
             r"^\s*$", np.nan, regex=True
         )
+        print(latest_sem_records["COURSE SEM"])
         latest_sem_records["COURSE SEM"].fillna(method="ffill", inplace=True)
+        print(latest_sem_records["COURSE SEM"])
 
     try:
         cols = data.pop(0)
