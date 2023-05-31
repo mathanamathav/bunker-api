@@ -18,6 +18,9 @@ build/
 docs/_build/
 .vscode
 
+# .gitignore
+__pycache__/
+
 # Coverage reports
 htmlcov/
 .coverage

@@ -1,9 +1,8 @@
 beautifulsoup4==4.11.1
-Flask==2.1.1
+Flask==2.3.2
 gunicorn==20.1.0
 numpy==1.22.3
 pandas==1.4.2
 requests==2.27.1
-Werkzeug==2.1.1
+Werkzeug==2.3.3
 pydantic==1.10.8
-
