@@ -1,14 +1,17 @@
 {% extends  'home.html' %}
-<!-- <-- <ul>
-	{% for val in table %}
-	<li>{{ val }}</li>
-	{% endfor %}
-</ul> -->
 {% block content  %}
 
-<!-- {{data}} -->
 {% if load %}
 
+	{% if cgpa.get("error", "") == "" %}
+	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
+	<center class="container">
+		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
+	</center>
+	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
+	{% endif %}
+
+	{% if time_table and data %}
 	<div class="container">
 		<table class="table table-sm table-bordered text-center">
 			<thead>
@@ -49,14 +52,6 @@
 	</div>
 	<br>
 
-	{% if cgpa.get("error", "") == "" %}
-	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
-	<center class="container">
-		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
-	{% endif %}
-	</center>
-
-
 	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 
 	{% for key in data %}
@@ -93,53 +88,10 @@
 	{% endfor %}
 
 	<hr style="width:100%;height:2px;border: width 6px;background-color: #EEEEEE;">
-<!-- 
-<center>
-	<h1 style="font-family: 'Press Start 2P', cursive;">
-		Stats for nerds
-	</h1>
-</center>
 
-<center>
-	<div id='chart' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart2' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart3' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart4' class='chart' ”></div>
-</center> -->
-
-<center>
-	<h4 style="font-family: 'Press Start 2P', cursive;color: #00ADB5;">
-		App in development!!
-	</h4>
-</center>
-
+	{% endif %}
 <br>
 <br>
-
-
-<!-- <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-<script type='text/javascript'>
-	var graphs = {{ graphJSON | safe}};
-	Plotly.plot('chart', graphs, {});
-
-	var graphs = {{ graphJSON2 | safe}};
-	Plotly.plot('chart2', graphs, {});
-
-	var graphs = {{ graphJSON3 | safe}};
-	Plotly.plot('chart3', graphs, {});
-
-	var graphs = {{ graphJSON4 | safe}};
-	Plotly.plot('chart4', graphs, {});
-
-
-</script> -->
-
 
 {% else %}
 

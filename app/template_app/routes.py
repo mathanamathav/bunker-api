@@ -1,4 +1,11 @@
 from flask import Blueprint, flash, jsonify, render_template, request
+from app.exceptions import (
+    AttendanceUpdateInProcessException,
+    InvalidUsernameOrPasswordException,
+    NoTimeTableDataException,
+    ScrappingError,
+)
+from app.services.ecampus_web_scrapper import AttendanceWebScrapper
 
 import bunker_mod as bk
 
@@ -12,43 +19,28 @@ def template_app():
         pwd = request.form.get("pwd")
 
         try:
-            table, session = bk.return_attendance(username, pwd)
-        except:
-            table = bk.return_attendance(username, pwd)
+            awc = AttendanceWebScrapper(user_name=username, password=pwd)
+            try:
+                time_table = awc.fetch_time_table()
+            except NoTimeTableDataException as error:
+                time_table = None
 
-        if (
-            table != "Invalid password"
-            and table != "Try again after some time"
-            and table != "Table is being updated"
-        ):
+            try:
+                attendance = awc.fetch_attendance()
+            except AttendanceUpdateInProcessException as error:
+                attendance = None
 
-            res = bk.data_json(table)
-
-            courses = []
-            total_class = []
-            total_present = []
-            specs = []
-            subplot_titles = []
-
-            for course in res:
-                courses.append(course["name"])
-                total_class.append(course["total_hours"])
-                total_present.append(course["total_present"])
-                specs.append([{"type": "domain"}])
-                subplot_titles.append("Course Code " + course["name"])
-
-            time_table = bk.return_timetable(session)
-
-            cgpa_details = bk.return_cgpa(session)
-
+            cgpa_details = bk.return_cgpa(awc.session)
+            
             return render_template(
                 "output.html",
                 load=True,
                 time_table=time_table,
-                data=res,
+                data=attendance,
                 cgpa=cgpa_details,
             )
-        else:
-            return render_template("output.html", load=False, text=table)
+
+        except (ScrappingError, InvalidUsernameOrPasswordException) as error:
+            return render_template("output.html", load=False, text=error.message)
 
     return render_template("home.html")

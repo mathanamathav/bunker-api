@@ -1,76 +1,9 @@
-# import pandas as pd
 import math
 
 import numpy as np
-# import json
-# import plotly
-# import plotly.express as px
-# import plotly.graph_objects as go
-# from plotly.subplots import make_subplots
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-
-
-# def many_pieplot(res,specs,subplot_titles,labels,total_class,total_present):
-#     """
-#         This function is to plot sub-pie-chart
-#     """
-
-#     fig = make_subplots(rows=len(res), cols=1,specs=specs,subplot_titles=subplot_titles)
-
-#     for i in range(len(res)):
-#         # Define pie charts
-#         fig.add_trace(go.Pie(labels=labels, values=[total_class[i],total_present[i]]
-#                             ), row=i+1, col=1)
-
-
-#     fig.update_layout(height=250*len(res))
-#     fig.update_layout({
-#         'plot_bgcolor':'rgba(0,0,0,0)',
-#         'paper_bgcolor': 'rgba(0,0,0,0)'
-#     },showlegend=True,
-#     title="Class-Wise view")
-
-
-#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#     return graphJSON
-
-
-# def line_chart(courses,total_class,total_present,title):
-#     """
-#         This function is to plot line chart Present vs Total
-#     """
-#     fig = go.Figure(data=[
-#                     go.Bar(name='Total Class', x=courses, y=total_class),
-#                     go.Bar(name='Total Present', x=courses, y=total_present)
-#         ])
-#     # fig = px.bar(df, x='course_code', y='total_class', color='course_code', barmode='group')
-#     fig.update_layout({
-#         'plot_bgcolor':'rgba(0,0,0,0)',
-#         'paper_bgcolor': 'rgba(0,0,0,0)'
-#     },showlegend=True,
-#     title=title)
-
-#     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#     return graphJSON
-
-
-# def pie_chart(label,value,title):
-#     """
-#         This function is to plot pie chart
-#     """
-#     fig = go.Figure(data=[go.Pie(labels=label, values=value, hole=.3)])
-#     fig.update_layout({
-#         'plot_bgcolor':'rgba(0,0,0,0)',
-#         'paper_bgcolor': 'rgba(0,0,0,0)'
-#     }
-#     ,showlegend=True,
-#     title=title)
-
-#     graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-#     return graphJSON2
-
 
 def data_json(data):
     """
@@ -316,7 +249,7 @@ def return_cgpa(session):
     # Preprocess latest sem results if available
     if len(latest_sem_data) != 0:
         latest_sem_data.pop(0)
-        print(latest_sem_data)
+        # print(latest_sem_data)
         latest_sem_records = pd.DataFrame(
             latest_sem_data,
             columns=[
@@ -328,15 +261,15 @@ def return_cgpa(session):
                 "RESULT",
             ],
         )
-        print(latest_sem_records)
+        # print(latest_sem_records)
         latest_sem_records["GRADE"] = latest_sem_records["GRADE"].str.split().str[-1]
-        print(latest_sem_records["COURSE SEM"])
+        # print(latest_sem_records["COURSE SEM"])
         latest_sem_records["COURSE SEM"] = latest_sem_records["COURSE SEM"].replace(
             r"^\s*$", np.nan, regex=True
         )
-        print(latest_sem_records["COURSE SEM"])
+        # print(latest_sem_records["COURSE SEM"])
         latest_sem_records["COURSE SEM"].fillna(method="ffill", inplace=True)
-        print(latest_sem_records["COURSE SEM"])
+        # print(latest_sem_records["COURSE SEM"])
 
     try:
         cols = data.pop(0)

@@ -1,6 +1,7 @@
 from typing import List
 
 import requests
+import re
 from bs4 import BeautifulSoup
 
 from app.exceptions import AttendanceUpdateInProcessException, InvalidUsernameOrPasswordException, \
@@ -15,8 +16,21 @@ class AttendanceWebScrapper:
     SEM_EXAM_RESULTS_PAGE_URL = "https://ecampus.psgtech.ac.in/studzone2/FrmEpsStudResult.aspx"
     COURSE_DETAILS_PAGE_URL = "https://ecampus.psgtech.ac.in/studzone2/AttWfStudCourseSelection.aspx"
 
-    def __init__(self):
+    def __init__(self,user_name,password):
         self.session = requests.Session()
+        login_page = self.session.get(self.ECAMPUS_URL)
+        soup = BeautifulSoup(login_page.text, "html.parser")
+        item_request_body = self.generate_login_request_body(soup, user_name, password)
+        response = self.session.post(
+            url=login_page.url, data=item_request_body, headers={"Referer": login_page.url}
+        )
+
+        if response.status_code != 200:
+            raise ScrappingError
+        soup = BeautifulSoup(response.text, "html.parser")
+        message = soup.find(string=re.compile("Invalid"))
+        if message and "Invalid" in message:
+            raise InvalidUsernameOrPasswordException
 
     def convert_data_to_json(self):
         pass
@@ -86,17 +100,7 @@ class AttendanceWebScrapper:
             data.append([ele for ele in cols if ele])
         return data
 
-    def fetch_attendance(self, user_name: str, password: str) -> list:
-        login_page = self.session.get(self.ECAMPUS_URL)
-        soup = BeautifulSoup(login_page.text, "html.parser")
-        item_request_body = self.generate_login_request_body(soup, user_name, password)
-        response = self.session.post(
-            url=login_page.url, data=item_request_body, headers={"Referer": login_page.url}
-        )
-
-        if response.status_code != 200:
-            raise ScrappingError
-
+    def fetch_attendance(self):
         attendance_page = self.session.get(self.ATTENDANCE_PAGE_URL)
         soup = BeautifulSoup(attendance_page.text, "html.parser")
         table = soup.find("table", attrs={"class": "cssbody"})
@@ -104,8 +108,6 @@ class AttendanceWebScrapper:
             message = str(soup.find("span", attrs={"id": "Message"}))
             if "On Process" in message:
                 raise AttendanceUpdateInProcessException
-            else:
-                raise InvalidUsernameOrPasswordException
 
         return AttendanceWebScrapper.parse_table_data_as_attendance_models(self.parse_table(table))
 
@@ -136,9 +138,12 @@ class AttendanceWebScrapper:
 
         return self.parse_table(table)
 
+    def fetch_previous_semester_exam_results(self):
+        pass
+
 
 if __name__ == '__main__':
-    awc = AttendanceWebScrapper()
-    print(awc.fetch_attendance(user_name='abcde', password='1234'))
+    awc = AttendanceWebScrapper(user_name='abcde', password='1234')
+    print(awc.fetch_attendance())
     print(awc.fetch_time_table())
     print(awc.fetch_previous_semester_exam_results())
