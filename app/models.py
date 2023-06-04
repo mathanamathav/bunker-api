@@ -19,3 +19,8 @@ class TimeTableModel(BaseModel):
     course_title: str
     programme: str
     sem_no: str
+
+
+class SemMarkModel(BaseModel):
+    latest_sem_no: int
+    latest_sem_cgpa: float

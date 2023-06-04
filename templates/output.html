@@ -3,10 +3,10 @@
 
 {% if load %}
 
-	{% if cgpa.get("error", "") == "" %}
+	{% if cgpa %}
 	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 	<center class="container">
-		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
+		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.latest_sem_no }} sem : {{ cgpa.latest_sem_cgpa }}</h5>
 	</center>
 	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 	{% endif %}
@@ -82,22 +82,16 @@
 		{% endif %}
 	</center>
 	</div>
-
 	<br>
-
 	{% endfor %}
-
 	<hr style="width:100%;height:2px;border: width 6px;background-color: #EEEEEE;">
-
 	{% endif %}
-<br>
-<br>
 
 {% else %}
 
-<script>
-	alert('{{ text }}');
-</script>
+	<script>
+		alert('{{ text }}');
+	</script>
 
 {% endif %}
 {% endblock %}

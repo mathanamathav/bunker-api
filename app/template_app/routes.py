@@ -30,8 +30,7 @@ def template_app():
             except AttendanceUpdateInProcessException as error:
                 attendance = None
 
-            cgpa_details = bk.return_cgpa(awc.session)
-            
+            cgpa_details = awc.fetch_all_previous_semester_exam_results()
             return render_template(
                 "output.html",
                 load=True,
