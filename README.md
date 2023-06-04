@@ -38,7 +38,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -117,8 +116,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [stars-url]: https://github.com/mathanamathav/bunker-api/stargazers
 [issues-shield]: https://img.shields.io/github/issues/mathanamathav/bunker-api.svg?style=for-the-badge
 [issues-url]: https://github.com/mathanamathav/bunker-api/issues
-[license-shield]: https://img.shields.io/github/license/mathanamathav/bunker-api.svg?style=for-the-badge
-[license-url]: https://github.com/mathanamathav/bunker-api/LICENSE.txt
+[license-shield]: https://img.shields.io/github/license/mathanamathav/bunker-api?style=for-the-badge
+[license-url]: https://raw.githubusercontent.com/mathanamathav/bunker-api/main/LICENSE
 [Flask.com]: https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white
 [Flask-url]: https://flask.palletsprojects.com/en/2.3.x/
 [Javascript.com]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
