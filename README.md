@@ -1,256 +1,127 @@
-**Bunker-Website**
-----
+<a name="readme-top"></a>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)
-![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
+<br />
+<div align="center">
+  <a href="https://github.com/mathanamathav/bunker-api">
+    <img src="static/appicon.ico" alt="Logo" width="80" height="80">
+  </a>
 
-This is a GUI version of the Bunker-API along with some visualization charts to see your attendance progress.
-  > ![image](https://user-images.githubusercontent.com/62739618/163450385-539888fd-f00b-431f-8881-ea2057722f81.png)
- 
-## Website Link
+<h3 align="center">Bunker-API</h3>
 
-Check out the website [link](https://bunker-api.vercel.app/ )😎
+  <p align="center">
+    Bunker-API is a API/website allows you to view the attendance recorded on your college website, as well as determine the number of days you can take off or attend classes.
+    <br />
+    <a href="https://bunker-api.vercel.app/">View Demo</a>
+    ·
+    <a href="https://github.com/mathanamathav/bunker-api/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mathanamathav/bunker-api/issues">Request Feature</a>
+  </p>
+</div>
 
-----
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
-**Bunker-API-AnyONE**
-----
-  The API call takes total class_code,total_class,total_present and threshold as input and return days to take leave or not!!.
+<!-- ABOUT THE PROJECT -->
 
-* **URL**
+## About The Project
 
-  https://bunker-api.vercel.app/senddata_attendance
+![image](https://user-images.githubusercontent.com/62739618/163450385-539888fd-f00b-431f-8881-ea2057722f81.png)
 
-* **Method:**
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  `POST`  
-  
-*  **URL Params**
-   
-   None
-   
-* **Data Params**
+### Built With
 
-   **Required:**
-   
+- [![Flask][Flask.com]][Flask-url]
+- [![Javascript][Javascript.com]][Javascript-url]
+- [![Vercel][Vercel.com]][Vercel-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/mathanamathav/bunker-api
    ```
-    POST /senddata_attendance HTTP/1.1
-    Host: bunker-api-prj.herokuapp.com
-    Content-Type: application/json
-    Content-Length: 186
+2. Create virtual environment and Install the python dependencies
+   ```sh
+    pip install -r requirements.txt
+   ```
+3. Activate the virtual environment , set flask environment and run
+   ```sh
+   set FLASK_APP=index.py
+   flask run --debug
+   ```
 
-    {
-      "class_code" : ["ABC101","ABC102","ABC103","ABC104","ABC105"],
-      "total_hours" : ["35","35","32","34","35"],
-      "total_present" : ["20","30","32","25","19"],
-      "threshold" : "75"
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-    }
-    ```
+<!-- CONTRIBUTING -->
 
-* **Success Response:**
-  
-  * **Code:** 200 <br />
-    **Content:** 
-    ```json
-     
-    {
-      "ABC101": {
-          "class_to_attend": 25,
-          "percentage_of_attendance": 0.57,
-          "total_hours": 35,
-          "total_present": 20
-      },
-      "ABC102": {
-          "class_to_bunk": 5,
-          "percentage_of_attendance": 0.86,
-          "total_hours": 35,
-          "total_present": 30
-      },
-      "ABC103": {
-          "class_to_bunk": 10,
-          "percentage_of_attendance": 1.0,
-          "total_hours": 32,
-          "total_present": 32
-      },
-      "ABC104": {
-          "class_to_attend": 2,
-          "percentage_of_attendance": 0.74,
-          "total_hours": 34,
-          "total_present": 25
-      },
-      "ABC105": {
-          "class_to_attend": 29,
-          "percentage_of_attendance": 0.54,
-          "total_hours": 35,
-          "total_present": 19
-      }
-    }
-    ```
+## Contributing
 
- 
-* **Error Response:**
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** 
-    ```json
-    {
-      "error" : "Given input details does not match up!!"
-    }
-    ```
+If you have suggestions for improving the method using better ML models, please reach out to us via email or through the GitHub repository's issues or pull requests. We welcome valid ideas and will consider integrating them into the main project. Please keep in mind that we prefer to utilize free tools and technologies whenever possible.
 
-* **Sample Call:**
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-  ```javascript
-  fetch('https://bunker-api-prj.herokuapp.com/senddata_attendance', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                      
-                      "class_code" : ["ABC101","ABC102","ABC103","ABC104","ABC105"],
-                      "total_hours" : ["35","35","32","34","35"],
-                      "total_present" : ["20","30","32","25","19"],
-                      "threshold" : "75"
-                                
-                                })
-        })
-            .then(resp => resp.text())
-            .then(response => {
-                var js = JSON.parse(response);
-                console.log(js);
-            }
-            )
-            .catch(error => console.log(error))
-  ```
-* **Notes:**
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  Check out the API checking website with input and response [link](https://reqbin.com/pocyrwrd)
+<!-- LICENSE -->
 
+## License
 
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-----
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-**Bunker-API**
-----
-  The API call takes upon the login details as parameter and returns scarped details from the website using the beautiful soup and days to take leave or not!.
-
-* **URL**
-
-  https://bunker-api.vercel.app/send_attendance/<_rollno_>/<_pwd_>
-
-* **Method:**
-
-  `POST`  
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `username=[alphanumeric]`
-   
-   `pwd=[alphanumeric]`
-   
-* **Data Params**
-
-  None
-
-* **Success Response:**
-  
-  * **Code:** 200 <br />
-    **Content:** 
-    ```json
-     {
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":0,
-        "percentage_of_attendance":77,
-        "total_hours":21,
-        "total_present":16
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":3,
-        "percentage_of_attendance":86,
-        "total_hours":21,
-        "total_present":18
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":1,
-        "percentage_of_attendance":80,
-        "total_hours":20,
-        "total_present":16
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":7,
-        "percentage_of_attendance":92,
-        "total_hours":35,
-        "total_present":32
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":9,
-        "percentage_of_attendance":100,
-        "total_hours":28,
-        "total_present":28
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":4,
-        "percentage_of_attendance":86,
-        "total_hours":28,
-        "total_present":24
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":1,
-        "percentage_of_attendance":79,
-        "total_hours":28,
-        "total_present":22
-     },
-     "1XXXXX":{
-        "attendance_from":"21-02-2022",
-        "attendance_to":"02-04-2022",
-        "class_to_bunk":2,
-        "percentage_of_attendance":80,
-        "total_hours":35,
-        "total_present":28
-     }
-    }
-    ```
-
- 
-* **Error Response:**
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** 
-    ```json
-    {
-    "error": "Invalid details try again"
-    }
-    ```
-
-* **Sample Call:**
-
-  ```javascript
-  const response = await fetch('https://bunker-api-prj.herokuapp.com/send_attendance/1****1/******', {
-    method: 'POST'
-  });
-
-  response.json().then(function (json) {
-    console.log(json)
-  }); 
-  ```
+[contributors-shield]: https://img.shields.io/github/contributors/mathanamathav/bunker-api.svg?style=for-the-badge
+[contributors-url]: https://github.com/mathanamathav/bunker-api/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mathanamathav/bunker-api.svg?style=for-the-badge
+[forks-url]: https://github.com/mathanamathav/bunker-api/network/members
+[stars-shield]: https://img.shields.io/github/stars/mathanamathav/bunker-api.svg?style=for-the-badge
+[stars-url]: https://github.com/mathanamathav/bunker-api/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mathanamathav/bunker-api.svg?style=for-the-badge
+[issues-url]: https://github.com/mathanamathav/bunker-api/issues
+[license-shield]: https://img.shields.io/github/license/mathanamathav/bunker-api.svg?style=for-the-badge
+[license-url]: https://github.com/mathanamathav/bunker-api/LICENSE.txt
+[Flask.com]: https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white
+[Flask-url]: https://flask.palletsprojects.com/en/2.3.x/
+[Javascript.com]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
+[Javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[Vercel.com]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
