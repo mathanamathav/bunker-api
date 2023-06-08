@@ -5,9 +5,10 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+
 def data_json(data):
     """
-        here we convert the data to json format calculate the amount days we have to take leave.
+    here we convert the data to json format calculate the amount days we have to take leave.
     """
     response_data = []
     threshold = [0.75, 0.65]
@@ -33,13 +34,13 @@ def data_json(data):
 
         temp["med_exception_hour"] = math.floor(
             (
-                    (temp["percentage_of_attendance_with_med_exemp"] / 100)
-                    * temp["total_hours"]
+                (temp["percentage_of_attendance_with_med_exemp"] / 100)
+                * temp["total_hours"]
             )
             - temp["total_present"]
         )
         temp["total_present_with_exemp"] = (
-                temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
+            temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
         )
 
         # Calculate bunker functionality
@@ -50,8 +51,8 @@ def data_json(data):
             )
         else:
             if temp["percentage_of_attendance"] > 65 and (
-                    temp["percentage_of_attendance_with_exemp"] > 75
-                    or temp["percentage_of_attendance_with_med_exemp"] > 75
+                temp["percentage_of_attendance_with_exemp"] > 75
+                or temp["percentage_of_attendance_with_med_exemp"] > 75
             ):
                 temp["class_to_bunk"] = math.floor(
                     (temp["total_present"] - (threshold[1] * temp["total_hours"]))
@@ -59,9 +60,9 @@ def data_json(data):
                 )
 
             elif (
-                    temp["percentage_of_attendance"]
-                    == temp["percentage_of_attendance_with_exemp"]
-                    == temp["percentage_of_attendance_with_med_exemp"]
+                temp["percentage_of_attendance"]
+                == temp["percentage_of_attendance_with_exemp"]
+                == temp["percentage_of_attendance_with_med_exemp"]
             ):
                 temp["class_to_attend"] = math.ceil(
                     (threshold[0] * temp["total_hours"] - temp["total_present"])
@@ -76,8 +77,8 @@ def data_json(data):
                     ),
                     math.ceil(
                         (
-                                threshold[0] * temp["total_hours"]
-                                - temp["total_present_with_exemp"]
+                            threshold[0] * temp["total_hours"]
+                            - temp["total_present_with_exemp"]
                         )
                         / (1 - threshold[0])
                     ),
@@ -118,7 +119,6 @@ def return_attendance(username, pwd):
         val = response.url
 
         if response.status_code == 200:
-
             defaultpage = "https://ecampus.psgtech.ac.in/studzone2/AttWfPercView.aspx"
 
             page = session.get(defaultpage)
@@ -138,7 +138,8 @@ def return_attendance(username, pwd):
                 for index, row in enumerate(rows):
                     cols = row.find_all("td")
                     cols = [ele.text.strip() for ele in cols]
-                    data.append([ele for ele in cols if ele])  # Get rid of empty val
+                    # Get rid of empty val
+                    data.append([ele for ele in cols if ele])
 
                 # df = pd.DataFrame(data, columns=column)
                 # res = df.to_json(orient="split")
