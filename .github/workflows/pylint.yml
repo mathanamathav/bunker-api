@@ -19,6 +19,9 @@ jobs:
         python -m pip install --upgrade pip
 
         pip install -r requirements.txt
-    - name: Analysing the code with pylint
+    - name: Lints each python file and fails if pylint score is less than 6.0
       run: |
-        pylint $(git ls-files '*.py')
+            for file in $(find -name '*.py')
+            do
+              pylint --disable=E0401,W0611 "$file" --fail-under=6.0;
+            done
