@@ -2,6 +2,7 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 
+"""Module provides constant variables for WebScrapper ."""
 GRADE_SCORE_MAP = {
     "O": 10,
     "A+": 9,
