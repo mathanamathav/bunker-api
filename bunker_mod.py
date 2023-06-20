@@ -93,22 +93,22 @@ def data_json(data):
         temp["total_present"] = int(item[4])
 
         temp["percentage_of_attendance"] = int(item[5])
-        temp["percentage_of_attendance_with_exemp"] = int(item[6])
-        temp["percentage_of_attendance_with_med_exemp"] = int(item[7])
+        # temp["percentage_of_attendance_with_exemp"] = int(item[6])
+        # temp["percentage_of_attendance_with_med_exemp"] = int(item[7])
 
         temp["attendance_from"] = item[8]
         temp["attendance_to"] = item[9]
 
-        temp["med_exception_hour"] = math.floor(
-            (
-                (temp["percentage_of_attendance_with_med_exemp"] / 100)
-                * temp["total_hours"]
-            )
-            - temp["total_present"]
-        )
-        temp["total_present_with_exemp"] = (
-            temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
-        )
+        # temp["med_exception_hour"] = math.floor(
+        #     (
+        #         (temp["percentage_of_attendance_with_med_exemp"] / 100)
+        #         * temp["total_hours"]
+        #     )
+        #     - temp["total_present"]
+        # )
+        # temp["total_present_with_exemp"] = (
+        #     temp["total_present"] + temp["exception_hour"] + temp["med_exception_hour"]
+        # )
 
         # Calculate bunker functionality
         if temp['percentage_of_attendance'] <= 75:
