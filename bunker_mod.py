@@ -111,46 +111,12 @@ def data_json(data):
         )
 
         # Calculate bunker functionality
-        if temp["percentage_of_attendance"] > 75:
-            temp["class_to_bunk"] = math.floor(
-                (temp["total_present"] - (threshold[0] * temp["total_hours"]))
-                / (threshold[0])
-            )
+        if temp['percentage_of_attendance'] <= 75:
+            temp['class_to_attend'] = math.ceil((threshold*temp['total_hours'] - temp['total_present'])/(1-threshold))
+        
         else:
-            if temp["percentage_of_attendance"] > 65 and (
-                temp["percentage_of_attendance_with_exemp"] > 75
-                or temp["percentage_of_attendance_with_med_exemp"] > 75
-            ):
-                temp["class_to_bunk"] = math.floor(
-                    (temp["total_present"] - (threshold[1] * temp["total_hours"]))
-                    / (threshold[1])
-                )
-
-            elif (
-                temp["percentage_of_attendance"]
-                == temp["percentage_of_attendance_with_exemp"]
-                == temp["percentage_of_attendance_with_med_exemp"]
-            ):
-                temp["class_to_attend"] = math.ceil(
-                    (threshold[0] * temp["total_hours"] - temp["total_present"])
-                    / (1 - threshold[0])
-                )
-
-            else:
-                temp["class_to_attend"] = max(
-                    math.ceil(
-                        (threshold[1] * temp["total_hours"] - temp["total_present"])
-                        / (1 - threshold[1])
-                    ),
-                    math.ceil(
-                        (
-                            threshold[0] * temp["total_hours"]
-                            - temp["total_present_with_exemp"]
-                        )
-                        / (1 - threshold[0])
-                    ),
-                )
-
+            temp['class_to_bunk'] = math.floor((temp['total_present']-(threshold*temp['total_hours']))/(threshold))
+            
         response_data.append(temp)
 
     return response_data
