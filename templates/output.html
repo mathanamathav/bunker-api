@@ -24,12 +24,6 @@
 				<tr style="font-family: 'Courier Prime', monospace;font-size: small;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">
 					<td>{{ key['name'] }}</td>
 					<td>{{key['percentage_of_attendance']}}</td>
-
-					{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
-						<td>{{key['percentage_of_attendance_with_exemp']}}</td>
-					{% else %}
-						<td>{{key['percentage_of_attendance_with_med_exemp']}}</td>
-					{% endif %}
 					
 					{% if key.get("class_to_bunk",0) != 0 %}
 						<td>Bunk : {{key.get("class_to_bunk",0)}}</td>
