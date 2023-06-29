@@ -1,33 +1,35 @@
 {% extends  'home.html' %}
-<!-- <-- <ul>
-	{% for val in table %}
-	<li>{{ val }}</li>
-	{% endfor %}
-</ul> -->
 {% block content  %}
 
-<!-- {{data}} -->
 {% if load %}
 
+	<center>
+	<div class="card" style="background-color: #222831;border-radius: 25px;padding: 10px;margin: 10px;">
+			<h6 style="font-family: 'Anton', sans-serif;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">It is best to have a physical attendance of more than 75%, and the remark data only takes physical attendance into consideration.</h6>
+	</div>
+	</center>
+	</br>
+	
+	{% if time_table and data %}
 	<div class="container">
 		<table class="table table-sm table-bordered text-center">
 			<thead>
 			<tr style="font-family: 'Courier Prime', monospace;font-size: small; color: #00ADB5;text-shadow:2px 2px 4px #000000;">
-				<th scope="col"  style="width: 10%">COURSE</th>
+				<th scope="col"  style="width: 50%">COURSE</th>
 				<th scope="col"  style="width: 10%">PHYSICAL</th>
-				<th scope="col"  style="width: 70%">REMARK</th>
+				<th scope="col"  style="width: 40%">REMARK</th>
 			</tr>
 			</thead>
 			<tbody>
 				{% for key in data %}
 				<tr style="font-family: 'Courier Prime', monospace;font-size: small;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">
-					<td>{{ key['name'] }}</td>
-					<td>{{key['percentage_of_attendance']}}</td>
+					<td>{{ time_table.get(key.course_code,"") }}</td>
+					<td>{{ key.percentage_of_attendance }}</td>
 					
-					{% if key.get("class_to_bunk",0) != 0 %}
-						<td>Bunk : {{key.get("class_to_bunk",0)}}</td>
+					{% if key.remark %}
+						<td>Bunk : {{key.remark.get("class_to_bunk",0)}}</td>
 					{% else %}
-						<td>Attend : {{key.get("class_to_attend",0)}}</td>
+						<td>Attend : {{key.remark.get("class_to_attend",0)}}</td>
 					{% endif %}
 				</tr>
 				{% endfor %}
@@ -35,104 +37,38 @@
 		</table>
 	</div>
 	<br>
-	<div class="card" style="background-color: #222831;border-radius: 25px;padding: 10px;">
-		<center>
-			<h4 style="font-family: 'Anton', sans-serif;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">It is best to have a physical attendance of more than 75%.</h4>
-		</center>
-	</div>
-	<br>
-
-<!-- 	{% if cgpa.get("error", "") == "" %}
-	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
-	<center class="container">
-		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
-	{% endif %}
-	</center>
- -->
-
 	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 
 	{% for key in data %}
 	<br>
 	<div class="card" style="background-color: #222831;border-radius: 25px;">
 	<center>
-		<h1 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">Course Code - {{ key['name'] }}</h1>
-		{% if time_table.get(key['name'],"") != "" %}
-			<h3 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">{{ time_table.get(key['name'],"") }}</h3>
-		{% endif %}
+		<h1 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">Course Code - {{ key.course_code }}</h1>
+		<h3 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">{{ time_table.get(key.course_code,"") }}</h3>
 
-		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Updated date : {{key['attendance_to']}}</h4>
-		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Hours : {{key['total_hours']}}</h4>
-		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Present : {{key['total_present']}}</h4>
-		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Updated date : {{key.attendance_percentage_to}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Hours : {{key.total_hours}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Present : {{key.total_present}}</h4>
+		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance : {{ key.percentage_of_attendance }}</h4>
 		
-		{% if key.get("class_to_bunk",0) != 0 %}
-		<h2 style="color:green;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
+		{% if key.remark.get("class_to_bunk",0) != 0 %}
+		<h2 style="color:green;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Take leave : {{key.remark.get("class_to_bunk",0)}} 👍
 		</h2>
 		{% else %}
-		<h2 style="color:red;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Attend : {{key.get("class_to_attend",0)}} 👎</h2>
+		<h2 style="color:red;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Attend : {{key.remark.get("class_to_attend",0)}} 👎</h2>
 		{% endif %}
 	</center>
 	</div>
-
 	<br>
-
 	{% endfor %}
-
 	<hr style="width:100%;height:2px;border: width 6px;background-color: #EEEEEE;">
-<!-- 
-<center>
-	<h1 style="font-family: 'Press Start 2P', cursive;">
-		Stats for nerds
-	</h1>
-</center>
-
-<center>
-	<div id='chart' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart2' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart3' class='chart' ”></div>
-</center>
-<center>
-	<div id='chart4' class='chart' ”></div>
-</center> -->
-
-<center>
-	<h4 style="font-family: 'Press Start 2P', cursive;color: #00ADB5;">
-		App in development!!
-	</h4>
-</center>
-
-<br>
-<br>
-
-
-<!-- <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-<script type='text/javascript'>
-	var graphs = {{ graphJSON | safe}};
-	Plotly.plot('chart', graphs, {});
-
-	var graphs = {{ graphJSON2 | safe}};
-	Plotly.plot('chart2', graphs, {});
-
-	var graphs = {{ graphJSON3 | safe}};
-	Plotly.plot('chart3', graphs, {});
-
-	var graphs = {{ graphJSON4 | safe}};
-	Plotly.plot('chart4', graphs, {});
-
-
-</script> -->
-
+	{% endif %}
 
 {% else %}
 
-<script>
-	alert('{{ text }}');
-</script>
+	<script>
+		alert('{{ text }}');
+	</script>
 
 {% endif %}
 {% endblock %}
