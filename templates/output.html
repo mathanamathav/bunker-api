@@ -18,7 +18,6 @@
 			<tr style="font-family: 'Courier Prime', monospace;font-size: small; color: #00ADB5;text-shadow:2px 2px 4px #000000;">
 				<th scope="col"  style="width: 10%">COURSE</th>
 				<th scope="col"  style="width: 10%">PHYSICAL</th>
-				<th scope="col"  style="width: 10%">WITH EXEMPTION</th>
 				<th scope="col"  style="width: 70%">REMARK</th>
 			</tr>
 			</thead>
@@ -27,12 +26,6 @@
 				<tr style="font-family: 'Courier Prime', monospace;font-size: small;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">
 					<td>{{ key['name'] }}</td>
 					<td>{{key['percentage_of_attendance']}}</td>
-
-					{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
-						<td>{{key['percentage_of_attendance_with_exemp']}}</td>
-					{% else %}
-						<td>{{key['percentage_of_attendance_with_med_exemp']}}</td>
-					{% endif %}
 					
 					{% if key.get("class_to_bunk",0) != 0 %}
 						<td>Bunk : {{key.get("class_to_bunk",0)}}</td>
@@ -52,6 +45,14 @@
 	</div>
 	<br>
 
+<!-- 	{% if cgpa.get("error", "") == "" %}
+	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
+	<center class="container">
+		<h3 style="color: #00ADB5;font-family: 'Anton', sans-serif;text-shadow:2px 2px 4px #000000;">CGPA upto {{ cgpa.get("lastest_sem") }} sem : {{ cgpa.get("latest_sem_cgpa") }}</h5>
+	{% endif %}
+	</center>
+ -->
+
 	<hr style="width:50%;height:2px;border: width 6px;background-color: #EEEEEE;">
 
 	{% for key in data %}
@@ -67,13 +68,7 @@
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Hours : {{key['total_hours']}}</h4>
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Present : {{key['total_present']}}</h4>
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance : {{key['percentage_of_attendance']}}</h4>
-
-		{% if key['percentage_of_attendance_with_exemp'] > key['percentage_of_attendance_with_med_exemp'] %}
-			<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_exemp']}}</h4>
-		{% else %}
-			<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Percentage of Attendance with exemption : {{key['percentage_of_attendance_with_med_exemp']}}</h4>
-		{% endif %}
-
+		
 		{% if key.get("class_to_bunk",0) != 0 %}
 		<h2 style="color:green;font-family: 'Bebas Neue', cursive;text-shadow:2px 2px 4px #000000;">Class To Take leave : {{key.get("class_to_bunk",0)}} 👍
 		</h2>
