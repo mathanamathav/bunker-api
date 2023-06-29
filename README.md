@@ -50,7 +50,8 @@
 
 ## About The Project
 
-![image](https://user-images.githubusercontent.com/62739618/163450385-539888fd-f00b-431f-8881-ea2057722f81.png)
+![image](https://github.com/mathanamathav/bunker-api/assets/62739618/d7fafb0d-86fb-4b65-884a-036e065b8e18)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
