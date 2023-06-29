@@ -12,6 +12,7 @@ class AttendanceModel(BaseModel):
     percentage_with_exemp_med: int
     attendance_percentage_from: str
     attendance_percentage_to: str
+    remark: dict
 
 
 class TimeTableModel(BaseModel):

@@ -7,7 +7,7 @@ from app.exceptions import (
 )
 from app.services.ecampus_web_scrapper import AttendanceWebScrapper
 
-import bunker_mod as bk
+from .utils import map_course_name_with_code
 
 template_page = Blueprint("template_app", __name__, template_folder="templates")
 
@@ -21,7 +21,7 @@ def template_app():
         try:
             awc = AttendanceWebScrapper(user_name=username, password=pwd)
             try:
-                time_table = awc.fetch_time_table()
+                time_table = map_course_name_with_code(awc.fetch_time_table())
             except NoTimeTableDataException as error:
                 time_table = None
 
@@ -30,13 +30,11 @@ def template_app():
             except AttendanceUpdateInProcessException as error:
                 attendance = None
 
-            cgpa_details = awc.fetch_all_previous_semester_exam_results()
             return render_template(
                 "output.html",
                 load=True,
                 time_table=time_table,
                 data=attendance,
-                cgpa=cgpa_details,
             )
 
         except (ScrappingError, InvalidUsernameOrPasswordException) as error:

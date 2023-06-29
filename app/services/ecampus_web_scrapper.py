@@ -2,6 +2,7 @@ from typing import List
 
 import requests
 import re
+import math
 from bs4 import BeautifulSoup
 
 from app.exceptions import (
@@ -64,6 +65,24 @@ class AttendanceWebScrapper:
         return grades.get(grade, 0)
 
     @staticmethod
+    def apply_the_bunker_formula(
+        percentage_of_attendance: int,
+        total_hours: int,
+        total_present: int,
+        threshold=0.75,
+    ) -> dict:
+        res = {}
+        if percentage_of_attendance <= 75:
+            res["class_to_attend"] = math.ceil(
+                (threshold * total_hours - total_present) / (1 - threshold)
+            )
+        else:
+            res["class_to_bunk"] = math.floor(
+                (total_present - (threshold * total_hours)) / (threshold)
+            )
+        return res
+
+    @staticmethod
     def generate_login_request_body(
         soup: BeautifulSoup, user_name: str, password: str
     ) -> dict:
@@ -99,6 +118,11 @@ class AttendanceWebScrapper:
                 percentage_with_exemp_med=int(d[7]),
                 attendance_percentage_from=d[8],
                 attendance_percentage_to=d[9],
+                remark=AttendanceWebScrapper.apply_the_bunker_formula(
+                    percentage_of_attendance=int(d[5]),
+                    total_hours=int(d[1]),
+                    total_present=int(d[4]),
+                ),
             )
             for d in data[1:]
         ]
