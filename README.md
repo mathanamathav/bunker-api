@@ -50,7 +50,8 @@
 
 ## About The Project
 
-![image](https://github.com/mathanamathav/bunker-api/assets/62739618/d7fafb0d-86fb-4b65-884a-036e065b8e18)
+![image](https://github.com/mathanamathav/bunker-api/assets/62739618/68854cfe-9291-4492-8391-151a3cff7465)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
