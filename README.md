@@ -86,6 +86,12 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mathanamathav/bunker-api&type=Date)](https://star-history.com/#mathanamathav/bunker-api&Date)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- CONTRIBUTING -->
 
 ## Contributing
