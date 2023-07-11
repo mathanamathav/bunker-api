@@ -26,7 +26,7 @@
 					<td>{{ time_table.get(key.course_code,"") }}</td>
 					<td>{{ key.percentage_of_attendance }}</td>
 					
-					{% if key.remark %}
+					{% if key.remark and class_to_bunk in key.remark %}
 						<td>Bunk : {{key.remark.get("class_to_bunk",0)}}</td>
 					{% else %}
 						<td>Attend : {{key.remark.get("class_to_attend",0)}}</td>
