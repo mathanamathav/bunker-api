@@ -7,7 +7,7 @@ from app.exceptions import (
 )
 from app.services.ecampus_web_scrapper import AttendanceWebScrapper
 
-from .utils import map_course_name_with_code
+from .utils import map_course_name_with_code, get_last_updated_date
 
 template_page = Blueprint("template_app", __name__, template_folder="templates")
 
@@ -27,6 +27,7 @@ def template_app():
 
             try:
                 attendance = awc.fetch_attendance()
+                last_date_updated = get_last_updated_date(attendance)
             except AttendanceUpdateInProcessException as error:
                 attendance = None
 
@@ -35,6 +36,7 @@ def template_app():
                 load=True,
                 time_table=time_table,
                 data=attendance,
+                last_date_updated=last_date_updated,
             )
 
         except (ScrappingError, InvalidUsernameOrPasswordException) as error:
