@@ -10,4 +10,4 @@ app.register_blueprint(template_page, url_prefix="/")
 app.register_blueprint(rest_api, url_prefix="/api")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6000, debug=True)
+    app.run(host="0.0.0.0", port=6000, debug=False)
