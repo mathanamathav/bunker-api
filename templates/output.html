@@ -46,9 +46,8 @@
 	<br>
 	<div class="card" style="background-color: #222831;border-radius: 25px;">
 	<center>
-		<h1 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">Course Code - {{ key.course_code }}</h1>
-		<h3 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">{{ time_table.get(key.course_code,"") }}</h3>
-
+		<h1 style="font-family: 'Anton', sans-serif;color: #00ADB5;text-shadow:2px 2px 4px #000000;">{{ time_table.get(key.course_code,"") }} - {{ key.course_code }}</h1>
+		
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Updated date : {{key.attendance_percentage_to}}</h4>
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Hours : {{key.total_hours}}</h4>
 		<h4 style="font-family: 'Bebas Neue', cursive;color: #EEEEEE;">Total Present : {{key.total_present}}</h4>

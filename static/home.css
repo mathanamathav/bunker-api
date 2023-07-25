@@ -50,20 +50,37 @@ body {
     opacity:0;
   }
 }
-
+/* Add regular styles for the button */
 .button {
   font-family: 'Inter', sans-serif;
   color: #00ADB5;
   background-color: #393E46;
-  border: 2px solid #EEEEEE;
-  border-radius: 12px;
+  border: 1px solid #EEEEEE;
+  border-radius: 14px;
   padding: 10px;
   text-align: center;
+  transition: background-color 0.3s; /* Add transition for the background color */
 }
 
-.button2:hover {
+/* Add a different background color on hover to create a hover effect */
+.button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  background-color: #029ca4;
+  color: #EEEEEE;
+
 }
+
+/* Add a different background color when the button is clicked */
+.button:active {
+  background-color: #026c71;
+}
+
+/* Add a transition to smooth out the background color change on click */
+.button:active {
+  transition: none; /* Disable the default transition on click */
+  background-color: #01484c; /* Set the background color to the clicked color */
+}
+
 
 .card {
   /* Add shadows to create the "card" effect */
