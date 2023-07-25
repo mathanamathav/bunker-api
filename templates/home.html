@@ -51,13 +51,13 @@
       <div class="container mt-3">
       <form action="{{ url_for("template_app.template_app")}}" method="post" id="myForm">
           <div class="form-group">
-            <label for="firstname" style="font-family: 'Courier Prime', monospace;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">Roll Number</label>
-            <input class="form-control" id="firstname" name="usr" placeholder="Roll Number" style="font-family: 'Bungee', cursive;" required pattern=".*\S+.*" >
+            <label for="rollno" style="font-family: 'Courier Prime', monospace;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">Roll Number</label>
+            <input class="form-control" autocapitalize="on" id="rollno" name="usr" placeholder="Roll Number" style="font-family: 'Bungee', cursive;" required pattern=".*\S+.*" >
             <!-- <small id="emailHelp" class="form-text text-muted" style="font-size: '14';font-family: 'Square Peg';">We'll never share your details with anyone else.</small> -->
           </div>
           <div class="form-group">
             <label for="lastname" style="font-family: 'Courier Prime', monospace;color: #EEEEEE;text-shadow:2px 2px 4px #000000;">Password</label>
-            <input type="password" class="form-control" name="pwd" id="lastname" placeholder="Password" style="font-family: 'Bungee', cursive;" required pattern=".*\S+.*">
+            <input type="password" class="form-control" autocapitalize="on" name="pwd" id="pwd" placeholder="Password" style="font-family: 'Bungee', cursive;" required pattern=".*\S+.*">
           </div>
           
           <center><button type="submit" class="button button2" id="submitButton" disabled>Login</button></center>
@@ -90,24 +90,31 @@
         <!-- Copyright -->
       
       </footer>
-    
+
     <script>
       const submitButton = document.getElementById('submitButton');
-    
+      
       // Function to check if both inputs are filled
       function checkInputs() {
-        if (document.getElementById('myForm').checkValidity()) {
+        const input1Value = document.getElementById('rollno').value.trim();
+        const input2Value = document.getElementById('pwd').value.trim();
+    
+        if (input1Value !== '' && input2Value !== '') {
           submitButton.removeAttribute('disabled');
         } else {
           submitButton.setAttribute('disabled', 'disabled');
         }
       }
     
-      // Add event listeners to the input fields
+      // Add event listeners to the input fields for both input and autofill events
       const inputs = document.querySelectorAll('input');
       inputs.forEach((input) => {
         input.addEventListener('input', checkInputs);
+        input.addEventListener('change', checkInputs);
       });
+    
+      // Call the checkInputs function to handle autofill when the page is loaded
+      checkInputs();
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
