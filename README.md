@@ -88,7 +88,7 @@
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=mathanamathav/bunker-api&type=Date)](https://star-history.com/#mathanamathav/bunker-api&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=mathanamathav/bunker-api&type=Timeline)](https://star-history.com/#mathanamathav/bunker-api&Timeline)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,6 +107,12 @@ If you have suggestions for improving the method using better ML models, please 
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- https://repobeats.axiom.co/ -->
+
+## Stats
+
+![Alt](https://repobeats.axiom.co/api/embed/7fdfdf3ee555e974d40be38ad8052d146ddb2a25.svg "Repobeats analytics image")
 
 <!-- LICENSE -->
 
